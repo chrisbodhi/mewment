@@ -1,5 +1,5 @@
-import productRoutes from 'server/products';
+import productRoutes from './products';
 
 export default function routes(app) {
-    app.use('/products', productRoutes);
+  app.use('/products', productRoutes);
 }
