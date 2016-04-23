@@ -1,4 +1,4 @@
-/* eslint-disable import/no-unresolved, consistent-return */
+/* eslint-disable consistent-return */
 import express from 'express';
 import bodyParser from 'body-parser';
 import path from 'path';
@@ -6,14 +6,14 @@ import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { RoutingContext, match } from 'react-router';
 import createLocation from 'history/lib/createLocation';
-import routes from 'routes';
-import serverRoutes from 'server/routes';
-import { makeStore } from 'helpers';
+import routes from './app/routes';
+import serverRoutes from './app/server/routes';
+import { makeStore } from './app/helpers';
 import { Provider } from 'react-redux';
-import { setItems, setCart } from 'actions/ProductsActions';
+import { setItems, setCart } from './app/actions/ProductsActions';
 
-import items from 'server/fake-database-items.js';
-import cart from 'server/fake-database-cart.js';
+import items from './app/server/fake-database-items.js';
+import cart from './app/server/fake-database-cart.js';
 
 const app = express();
 
@@ -27,7 +27,7 @@ app.use((req, res) => {
 
   match({ routes, location }, (err, redirectLocation, renderProps) => {
     if (err) {
-      console.log(err); /* eslint no-console: "off" */
+      console.log(err);
       return res.status(500).end('Internal server error');
     }
 
