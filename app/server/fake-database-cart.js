@@ -1,3 +1,3 @@
-var cart = [2,1];
+var cart = [2];
 
 export default cart;

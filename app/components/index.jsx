@@ -14,14 +14,14 @@ let initialState = window.__INITIAL_STATE__;
 
 // Transform into Immutable.js collections, but leave top level keys untouched
 Object.keys(initialState)
-    .forEach(key => {
-        initialState[key] = fromJS(initialState[key]);
-    });
+  .forEach(key => {
+    initialState[key] = fromJS(initialState[key]);
+  });
 
 const store = makeStore(initialState);
 
 render(
-    <Provider store={store}>
-        <Router children={routes} history={history} />
-    </Provider>,
-    document.getElementById('app'));
+  <Provider store={store}>
+    <Router children={routes} history={history} />
+  </Provider>,
+  document.getElementById('app'));
