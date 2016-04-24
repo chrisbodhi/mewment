@@ -13,10 +13,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/michaelcheng429/bestactprep"
+    "url": "https://github.com/chrisbodhi/mewment"
   },
   "keywords": [],
-  "author": "",
+  "author": "Chris Boette",
   "license": "ISC",
   "dependencies": {
     "autoprefixer-loader": "^3.1.0",
@@ -46,7 +46,7 @@
     "webpack": "^1.12.10"
   },
   "engines": {
-    "node": "0.12.0"
+    "node": "5.10.1"
   },
   "devDependencies": {
     "babel-cli": "^6.4.0",
