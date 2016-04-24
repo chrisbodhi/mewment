@@ -1,7 +1,7 @@
 export function setProfile(id) {
   return {
     type: 'SET_PROFILE',
-    id // todo: use id to pull info from db & set user component's state
+    id
   };
 }
 

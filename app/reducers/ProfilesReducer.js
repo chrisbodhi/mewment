@@ -1,38 +1,33 @@
-import { Map, List, fromJS } from 'immutable';
-import $ from 'jquery';
+/* eslint-disable no-underscore-dangle */
 
-const defaultState = fromJS({
-  name: '',
-  age: 0,
-  type: '',
-  location: '',
-  text: '',
-  photos: [],
-  items: [{
-    name: '',
-    link: 'http://amazon.com',
-    category: ''
-  }]
-});
+import { Map, fromJS } from 'immutable';
+import rp from 'request-promise';
 
-function setProfile(state, action) {
-  // todo: write this getter, but I guess it'll be knex?
-  const response = $.get('http://db', action.id);
-  return state.set(response);
+async function setProfile(state, action) {
+  // todo: determine uri based on on env vars
+  const opts = { uri: `http://localhost:3030/profile/${action.id}`, json: true };
+  const nextState = await rp(opts)
+    .then((profile) => {
+      return profile;
+    })
+    .catch((err) => {
+      throw new Error(err);
+    });
+  return state.merge(fromJS(nextState));
 }
 
 function addToCart(state, action) {
   const nextCart = state.get('cart').push(action.id);
 
-  $.ajax({
-    type: 'POST',
-    url: '/products/cart/update',
-    data: JSON.stringify({ cart: nextCart }),
-    contentType: 'application/json',
-    success(response) {
-      console.log(response);
-    }
-  });
+  // $.ajax({
+  //   type: 'POST',
+  //   url: '/products/cart/update',
+  //   data: JSON.stringify({ cart: nextCart }),
+  //   contentType: 'application/json',
+  //   success(response) {
+  //     console.log(response);
+  //   }
+  // });
 
   return state.set('cart', nextCart);
 }
@@ -42,23 +37,24 @@ function removeFromCart(state, action) {
   const index = cart.findIndex(id => id === action.id);
   const nextCart = cart.delete(index);
 
-  $.ajax({
-    type: 'POST',
-    url: '/products/cart/update',
-    data: JSON.stringify({ cart: nextCart }),
-    contentType: 'application/json',
-    success(response) {
-      console.log(response);
-    }
-  });
+  // $.ajax({
+  //   type: 'POST',
+  //   url: '/products/cart/update',
+  //   data: JSON.stringify({ cart: nextCart }),
+  //   contentType: 'application/json',
+  //   success(response) {
+  //     console.log(response);
+  //   }
+  // });
 
   return state.set('cart', nextCart);
 }
 
-export default function productReducer(state = defaultState, action) {
+export default async function profileReducer(state = Map(), action) {
   switch (action.type) {
     case 'SET_PROFILE':
-      return setProfile(state, action);
+      const nextState = await setProfile(state, action);
+      return nextState;
     case 'SET_CART':
       return state.set('cart', fromJS(action.cart));
     case 'CART_ADD':
