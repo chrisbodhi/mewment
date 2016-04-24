@@ -1,0 +1,34 @@
+{
+  "profile": [
+    {
+      "id": 0,
+      "name": "Fluffy",
+      "age": 101,
+      "type": "Cheshire",
+      "location": "SoCo",
+      "text": "Fluffy is a mean motherfucker.",
+      "photos": [
+        "http://cloudinary.com/1",
+        "http://cloudinary.com/2",
+        "http://cloudinary.com/3"
+      ],
+      "items": [
+        {
+          "name": "Purina ONE Dry Cat Food",
+          "link": "http://www.amazon.com/Purina-ONE-Indoor-Advantage-16-Pound/dp/B000WFKTWM",
+          "category": "Food"
+        },
+        {
+          "name": "The Ultimate Scratching Post",
+          "link": "http://www.amazon.com/SmartCat-3832-Ultimate-Scratching-Post/dp/B000634MH8",
+          "category": "Furniture"
+        },
+        {
+          "name": "Go Cat Teaser Cat Catcher Wand Cat Toy",
+          "link": "http://www.amazon.com/Go-Cat-Catcher-Teaser-Mouse/dp/B000LPOUNW",
+          "category": "Toy"
+        }
+      ]
+    }
+  ]
+}
