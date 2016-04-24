@@ -5,7 +5,7 @@ import rp from 'request-promise';
 
 async function setProfile(state, action) {
   // todo: determine uri based on on env vars
-  const opts = { uri: `http://localhost:3030/profile/${action.id}`, json: true };
+  const opts = { uri: `${process.env.DB_URL}/profile/${action.id}`, json: true };
   const nextState = await rp(opts)
     .then((profile) => {
       return profile;
