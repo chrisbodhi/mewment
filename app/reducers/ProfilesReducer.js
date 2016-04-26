@@ -4,7 +4,6 @@ import { Map, fromJS } from 'immutable';
 import rp from 'request-promise';
 
 async function setProfile(state, action) {
-  // todo: determine uri based on on env vars
   const opts = { uri: `${process.env.DB_URL}/profile/${action.id}`, json: true };
   const nextState = await rp(opts)
     .then((profile) => {
@@ -55,6 +54,9 @@ export default async function profileReducer(state = Map(), action) {
     case 'SET_PROFILE':
       const nextState = await setProfile(state, action);
       return nextState;
+    case 'FOLLOW_USER':
+      const newFollowing = state.get('following').push(action.followId);
+      return state.set('following', newFollowing);
     case 'SET_CART':
       return state.set('cart', fromJS(action.cart));
     case 'CART_ADD':
