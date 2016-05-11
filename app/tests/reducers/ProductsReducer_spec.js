@@ -9,7 +9,7 @@ const defaultState = Map({
   cart: List()
 });
 
-describe('ProductsReducer', () => {
+xdescribe('ProductsReducer', () => {
   describe('SET_ITEMS', () => {
     it('should set items correctly', () => {
       const action = {
