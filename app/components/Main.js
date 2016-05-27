@@ -12,25 +12,24 @@ const config = {
 firebase.initializeApp(config);
 console.log('conf', config);
 const provider = new firebase.auth.FacebookAuthProvider();
-firebase.auth()
-  .signInWithPopup(provider)
-  .then((result) => {
-    // This gives you a Facebook Access Token. You can use it to access the Facebook API.
-    const token = result.credential.accessToken;
-    // The signed-in user info.
-    const user = result.user;
-    console.log('token, user', token, user);
-  })
-  .catch((error) => {
-    // Handle Errors here.
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    // The email of the user's account used.
-    const email = error.email;
-    // The firebase.auth.AuthCredential type that was used.
-    const credential = error.credential;
-    console.log('error info', errorCode, errorMessage, email, credential);
-  });
+firebase.auth().signInWithPopup(provider, (error, result) => {
+  // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+  const token = result.credential.accessToken;
+  // The signed-in user info.
+  const user = result.user;
+  console.log('token, user', token, user);
+  // set state to include user
+})
+.catch((error) => {
+  // Handle Errors here.
+  const errorCode = error.code;
+  const errorMessage = error.message;
+  // The email of the user's account used.
+  const email = error.email;
+  // The firebase.auth.AuthCredential type that was used.
+  const credential = error.credential;
+  console.log('error info', errorCode, errorMessage, email, credential);
+});
 
 const Main = ({ history, children }) => {
   return (
