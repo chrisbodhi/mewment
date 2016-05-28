@@ -5,6 +5,8 @@
 Kinda like a mashup of Tinder and Instagram, but for cats -- phase II will mash in Uber
 
 ###Dev Notes
-
-- Install `json-server` globally [`npm install -g json-server`] to load a JSON file as a db for testing.
-- Run `json-server ./app/tests/db.json --port 3030` to boot up the mock db before running `npm run test`.
+- Get `.env` file and place it in your root directory
+- Install webpack globally [`npm install -g webpack-dev-server`]
+- `npm install`
+- `npm run dev` to run Webpack with the watch flag
+- Go to [http://localhost:8080](http://localhost:8080) to see the fruits of your labor
