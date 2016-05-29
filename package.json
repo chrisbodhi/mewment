@@ -6,7 +6,6 @@
   "scripts": {
     "start": "",
     "dev": "webpack-dev-server --inline --hot --content-base public"
-
   },
   "repository": {
     "type": "git",
@@ -24,8 +23,12 @@
     "re-base": "^1.5.1",
     "react": "^0.14.3",
     "react-dom": "^0.14.3",
+    "react-redux": "^4.4.5",
     "react-router": "^1.0.1",
-    "reactfire": "^0.5.1"
+    "reactfire": "^0.5.1",
+    "redux": "^3.5.2",
+    "redux-logger": "^2.6.1",
+    "redux-thunk": "^2.1.0"
   },
   "devDependencies": {
     "babel-core": "^6.3.13",
@@ -36,6 +39,7 @@
     "eslint-plugin-import": "^1.8.1",
     "eslint-plugin-jsx-a11y": "^1.2.2",
     "eslint-plugin-react": "^5.1.1",
+    "redux-devtools": "^3.3.1",
     "webpack": "^1.13.1"
   },
   "engines": {
