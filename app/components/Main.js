@@ -1,14 +1,14 @@
 import React from 'react';
-// import SearchGithub from './SearchGithub';
+import { connect } from 'react-redux';
+
 import SignIn from './SignIn';
 
-const Main = ({ history, children }) => {
+const MainContainer = ({ children, user }) => {
   return (
     <div className="main-container">
       <nav className="navbar navbar-default" role="navigation">
         <div className="col-sm-7 col-sm-offset-2" style={{ marginTop: 15 }}>
-          {/* <SearchGithub history={history} /> */}
-          <SignIn />
+          <SignIn uid={user.uid || ''} />
         </div>
       </nav>
       <div className="container">
@@ -19,9 +19,12 @@ const Main = ({ history, children }) => {
   );
 };
 
-Main.propTypes = {
-  history: React.PropTypes.object.isRequired,
-  children: React.PropTypes.object.isRequired
+MainContainer.propTypes = {
+  children: React.PropTypes.object.isRequired,
+  user: React.PropTypes.object.isRequired
 };
+
+const mapStateToMainContainerProps = (state) => ({ user: state.user });
+const Main = connect(mapStateToMainContainerProps)(MainContainer);
 
 export default Main;
