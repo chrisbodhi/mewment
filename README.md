@@ -22,6 +22,15 @@ _Kinda like a mashup of Tinder and Instagram, but for cats &mdash; phase II will
 - `npm run dev` to start the Webpack dev server with ~~hawt~~ hot reloading of that `bundle.js` file in the `public` directory.
 - Go to [http://localhost:8080](http://localhost:8080) to create some Mewments.
 
+##How to Deploy
+- Install Firebase CLI globally [`npm install -g firebase-tools`]
+- Clone the repo using your preferred method
+  - Maybe `git clone git@github.com:chrisbodhi/mewment.git` from your command line? Or `git clone chrisbodhi/mewment` if you're using [Hub](https://hub.github.com).
+- Run `npm install` in the project's root direction
+- Run `firebase login` and, um, login
+- Run `npm deploy` and :tada:
+
+
 ##Resources
 This project is using React &amp; Redux, along with a host of other tools standard to that ecosystem: Webpack, Babel for transpiling ES2015, &amp; ESLint. Over time, I've found the following resources helpful:
 

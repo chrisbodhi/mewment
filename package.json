@@ -4,7 +4,8 @@
   "description": "A mashup of Tinder and Instagram. About cats.",
   "main": "index.js",
   "scripts": {
-    "start": "./node_modules/.bin/webpack --content-base public & node server.js",
+    "start": "./node_modules/.bin/webpack --content-base public && firebase serve --port 3000",
+    "deploy": "./node_modules/.bin/webpack --content-base public && firebase deploy",
     "dev": "webpack-dev-server --inline --hot --content-base public"
   },
   "repository": {
@@ -18,9 +19,7 @@
     "axios": "^0.8.0",
     "dotenv": "^2.0.0",
     "firebase": "^3.0.3",
-    "hapi": "^13.4.1",
     "history": "^1.13.1",
-    "inert": "^4.0.0",
     "lodash": "^4.13.1",
     "re-base": "^1.5.1",
     "react": "^0.14.3",
