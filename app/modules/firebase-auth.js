@@ -1,26 +1,41 @@
 import firebase from 'firebase';
+import { config } from '../config/firebase';
+import { serviceAccount } from '../../firebase-service-account-key';
 
-const config = {
-  apiKey: 'AIzaSyDBQ1JuBlrjwu1Gb8eFDR4aBIAmzov7iYg',
-  authDomain: 'project-3398608299508035534.firebaseapp.com',
-  databaseURL: 'https://project-3398608299508035534.firebaseio.com',
-  storageBucket: 'project-3398608299508035534.appspot.com',
-};
+let provider;
 
-firebase.initializeApp(config);
-const provider = new firebase.auth.FacebookAuthProvider();
+if (process.env.NODE_ENV) {
+  firebase.initializeApp({
+    serviceAccount,
+    databaseURL: config.databaseURL
+  });
+} else {
+  firebase.initializeApp(config);
+  provider = new firebase.auth.FacebookAuthProvider();
+}
+
+const db = firebase.database();
 
 export function fbSignIn() {
   return firebase.auth().signInWithPopup(provider)
     .then((result) => {
-      // const token = result.credential.accessToken;
-      // todo: add user.uid to firebase db if not exists already
-      return result.user;
+      const user = result.user.providerData[0];
+      const uid = user.uid;
+
+      // Create user in db if this one does not exist
+      db.ref(`/users/${uid}`).once('value')
+        .then((snapshot) => {
+          if (!snapshot.val()) {
+            const { displayName, email, photoURL, providerId } = user;
+            db.ref(`/users/${uid}`).set({ displayName, email, photoURL, providerId, uid });
+          }
+        });
+      return { user };
     })
     .catch((err) => {
-      throw new Error(`error code: ${err.code}
-        | errorMessage: ${err.message}
-        | email: ${err.email}
+      throw new Error(`error code: ${err.code}\n
+        | errorMessage: ${err.message}\n
+        | email: ${err.email}\n
         | credential: ${err.credential}`);
     });
 }
