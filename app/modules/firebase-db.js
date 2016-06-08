@@ -38,8 +38,7 @@ export function saveProfileToFb(data) {
         const { name, age, sex, color, about } = data;
         db.ref(`/cats/${uid}/${catId}`)
           .set({ name, age, sex, color, about, avatar });
-        // Clear out `profile` from state, add to `cats` in state with info from Firebase.
-        // Then, redirect to some page. Main feed?
+        return { name, age, sex, color, about, avatar };
       })
       .catch((err) => {
         throw new Error(`Error getting cat profile: ${err}`);
