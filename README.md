@@ -1,10 +1,10 @@
 #Mewment
 
+[![Stories in Ready](https://badge.waffle.io/chrisbodhi/mewment.png?label=ready&title=Ready)](http://waffle.io/chrisbodhi/mewment)
+
 ![mew](http://www.glossophilia.org/wp-content/uploads/catmew.jpg)
 
-_Kinda like a mashup of Tinder and Instagram, but for cats &mdash; phase II will ~~mash in Uber~~ [this will be sort of hard to test without Uber operating in ATX right now, so phase II is up in the air]_ `/shrug`
-
-[![Stories in Ready](https://badge.waffle.io/chrisbodhi/mewment.png?label=ready&title=Ready)](http://waffle.io/chrisbodhi/mewment)
+_Kinda like a mashup of Tinder and Instagram, but for cats &mdash; phase II will ~~mash in Uber~~ [this will be sort of hard to test without Uber operating in ATX right now, so phase II is up in the air `/shrug` ]_
 
 ##Running Locally
 - Clone the repo using your preferred method.
@@ -40,3 +40,6 @@ This project is using React &amp; Redux, along with a host of other tools standa
 ####Redux
 - [Redux video course](https://egghead.io/series/getting-started-with-redux) from the creator of Redux, Dan Abramov. || _free_
 - [Redux ~~encyclopedia~~ docs](http://redux.js.org/docs/basics/index.html) || _free_
+
+####Firebase
+- [Getting Started with Firebase](https://firebase.google.com/docs/web/setup) || _free_
