@@ -6,7 +6,9 @@ import {
   SIGN_IN_WITH_FB,
   SIGN_OUT_OF_FB,
   RECEIVE_USER,
-  ADD_PROFILE
+  ADD_PROFILE,
+  CLEAR_PROFILE,
+  ADD_CAT
 } from '../actions';
 
 const initialUserState = {
@@ -67,6 +69,17 @@ function profile(state = {}, action) {
         state,
         action.data
       );
+    case CLEAR_PROFILE:
+      return {};
+    default:
+      return state;
+  }
+}
+
+function cats(state = [], action) {
+  switch (action.type) {
+    case ADD_CAT:
+      return [...state, action.cat];
     default:
       return state;
   }
@@ -75,7 +88,8 @@ function profile(state = {}, action) {
 const reducers = {
   user: userAuth,
   profile,
-  form: formReducer
+  form: formReducer,
+  cats
 };
 
 // Note: this implicitly passes `state` and `action` args

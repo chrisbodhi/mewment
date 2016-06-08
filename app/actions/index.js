@@ -9,6 +9,8 @@ export const RECEIVE_USER = 'RECEIVE_USER';
 export const AUTH_ERROR = 'AUTH_ERROR';
 
 export const ADD_PROFILE = 'ADD_PROFILE';
+export const CLEAR_PROFILE = 'CLEAR_PROFILE';
+export const ADD_CAT = 'ADD_CAT';
 
 // ACTION CREATORS
 function signInWithFb() {
@@ -52,15 +54,13 @@ export function signIn() {
 }
 
 export function signOut() {
-  return (dispatch) => {
-    return fbSignOut()
-      .then(() => {
-        dispatch(signOutOfFb());
-      })
-      .catch((err) => {
-        throw new Error(`Err in signOut(): ${err}`);
-      });
-  };
+  return (dispatch) => fbSignOut()
+    .then(() => {
+      dispatch(signOutOfFb());
+    })
+    .catch((err) => {
+      throw new Error(`Err in signOut(): ${err}`);
+    });
 }
 
 function addProfileToState() {
@@ -69,12 +69,26 @@ function addProfileToState() {
   };
 }
 
+export function clearProfile() {
+  return {
+    type: CLEAR_PROFILE
+  };
+}
+
+export function addCat(cat) {
+  return {
+    type: ADD_CAT,
+    cat
+  };
+}
+
 export function addProfile(data) {
   return (dispatch) => {
     dispatch(addProfileToState);
     return saveProfileToFb(data)
-      .then(() => {
-        // ADD_CAT action to keep track of cats in the state?
+      .then((cat) => {
+        dispatch(addCat(cat));
+        dispatch(clearProfile);
       })
       .catch((err) => {
         throw new Error(`Err saving profile to Firebase: ${err}`);
