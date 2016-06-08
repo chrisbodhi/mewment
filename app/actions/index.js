@@ -5,7 +5,6 @@ import { saveProfileToFb } from '../modules/firebase-db';
 export const SIGN_IN_WITH_FB = 'SIGN_IN_WITH_FB';
 export const SIGN_OUT_OF_FB = 'SIGN_OUT_OF_FB';
 export const RECEIVE_USER = 'RECEIVE_USER';
-// todo: handle this auth_error
 export const AUTH_ERROR = 'AUTH_ERROR';
 
 export const ADD_PROFILE = 'ADD_PROFILE';
@@ -32,7 +31,6 @@ function receiveUser(response) {
   };
 }
 
-// todo: handle this authError
 export function authError(error) {
   return {
     type: AUTH_ERROR,
