@@ -5,6 +5,7 @@ npm-debug.log*
 
 # Environment Variables
 .env
+firebase-service-account-key.js
 
 # Compiled binary addons (http://nodejs.org/api/addons.html)
 build/Release

@@ -1,12 +1,15 @@
 import _ from 'lodash';
 import { combineReducers } from 'redux';
+import { reducer as formReducer } from 'redux-form';
+
 import {
   SIGN_IN_WITH_FB,
   SIGN_OUT_OF_FB,
-  RECEIVE_USER
+  RECEIVE_USER,
+  ADD_PROFILE
 } from '../actions';
 
-const initialState = {
+const initialUserState = {
   isFetching: false,
   didInvalidate: false,
   uid: ''
@@ -22,7 +25,7 @@ const invalidatedUser = {
   uid: ''
 };
 
-function userAuth(state = initialState, action) {
+function userAuth(state = initialUserState, action) {
   switch (action.type) {
     case SIGN_IN_WITH_FB:
       return _.assign(
@@ -56,6 +59,26 @@ function userAuth(state = initialState, action) {
   }
 }
 
-// Note: this implicitly passes `state` and `action` args to `userAuth`
-const app = combineReducers({ user: userAuth });
+function profile(state = {}, action) {
+  switch (action.type) {
+    case ADD_PROFILE:
+      return _.assign(
+        {},
+        state,
+        action.data
+      );
+    default:
+      return state;
+  }
+}
+
+const reducers = {
+  user: userAuth,
+  profile,
+  form: formReducer
+};
+
+// Note: this implicitly passes `state` and `action` args
+// to the reducer functions
+const app = combineReducers(reducers);
 export default app;
