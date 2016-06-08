@@ -4,6 +4,8 @@
 
 _Kinda like a mashup of Tinder and Instagram, but for cats &mdash; phase II will ~~mash in Uber~~ [this will be sort of hard to test without Uber operating in ATX right now, so phase II is up in the air]_ `/shrug`
 
+[![Stories in Ready](https://badge.waffle.io/chrisbodhi/mewment.png?label=ready&title=Ready)](http://waffle.io/chrisbodhi/mewment)
+
 ##Running Locally
 - Clone the repo using your preferred method.
   - Maybe `git clone git@github.com:chrisbodhi/mewment.git` from your command line?
