@@ -10,7 +10,6 @@ class addProfileContainer extends React.Component {
   handleSubmit(e) {
     const data = _.assign({}, e, { lastUpdated: Date.now() });
     this.props.dispatch(saveProfile(data));
-    // todo: so, it's come to this, eh, `window`?
     // dirty hack, replace it
     window.location.hash = window.location.hash.replace(/\/add/, '');
   }
