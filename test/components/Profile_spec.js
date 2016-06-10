@@ -51,7 +51,7 @@ describe('components', () => {
       expect(output.props.className).toBe('row');
       expect(output.props.children.length).toBe(3);
 
-      const [Link, hr] = output.props.children;
+      const [hr, Link] = output.props.children.slice(1);
       expect(Link.props.to).toBe('/profile/add');
       expect(hr.type).toBe('hr');
     });

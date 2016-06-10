@@ -23,13 +23,13 @@ export const ProfileContainer = ({ user, cats }) => (
   user.uid
     ? (
     <div className="row">
-      <Link to={'/profile/add'}>Would you like to add a profile?</Link>
-      <hr />
       {
         cats && cats.length
           ? <CatProfiles cats={cats} />
           : <p>No cats yet! <Link to={'/profile/add'}>Would you like to add one?</Link></p>
       }
+      <hr />
+      <Link to={'/profile/add'}>Would you like to add a profile?</Link>
     </div>)
   : (<div>Sign in to access</div>)
 );
