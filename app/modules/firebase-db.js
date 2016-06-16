@@ -41,3 +41,9 @@ export function saveProfileToFb(data) {
       })
     );
 }
+
+export function fetchCatsFromFb(uid) {
+  return db.ref(`/cats/${uid}`)
+    .once('value')
+    .then((snapshot) => snapshot.val());
+}

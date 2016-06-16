@@ -1,5 +1,5 @@
 import { fbSignIn, fbSignOut } from '../modules/firebase-auth';
-import { saveProfileToFb } from '../modules/firebase-db';
+import { fetchCatsFromFb, saveProfileToFb } from '../modules/firebase-db';
 
 // ACTION TYPES
 export const SIGN_IN_WITH_FB = 'SIGN_IN_WITH_FB';
@@ -10,8 +10,52 @@ export const AUTH_ERROR = 'AUTH_ERROR';
 export const ADD_PROFILE = 'ADD_PROFILE';
 export const CLEAR_PROFILE = 'CLEAR_PROFILE';
 export const ADD_CAT = 'ADD_CAT';
+export const FETCH_CATS = 'FETCH_CATS';
+export const FETCH_CATS_REQUEST = 'FETCH_CATS_REQUEST';
+export const FETCH_CATS_WIN = 'FETCH_CATS_WIN';
+export const FETCH_CATS_FAIL = 'FETCH_CATS_FAIL';
 
 // ACTION CREATORS
+
+// Cat actions
+export function addCat(cat) {
+  return {
+    type: ADD_CAT,
+    cat
+  };
+}
+
+function fetchCatsRequest(uid) {
+  return {
+    type: FETCH_CATS_REQUEST,
+    uid
+  };
+}
+
+function fetchCatsWin(catsFromFb) {
+  return {
+    type: FETCH_CATS_WIN,
+    catsFromFb
+  };
+}
+
+function fetchCatsFail(err) {
+  return {
+    type: FETCH_CATS_FAIL,
+    err
+  };
+}
+
+export function fetchCats(uid) {
+  return (dispatch) => {
+    dispatch(fetchCatsRequest(uid));
+    return fetchCatsFromFb(uid)
+      .then((catsFromFb) => dispatch(fetchCatsWin(catsFromFb)))
+      .catch((err) => dispatch(fetchCatsFail(err)));
+  };
+}
+
+// User actions
 function signInWithFb() {
   return {
     type: SIGN_IN_WITH_FB
@@ -70,13 +114,6 @@ function addProfileToState() {
 export function clearProfile() {
   return {
     type: CLEAR_PROFILE
-  };
-}
-
-export function addCat(cat) {
-  return {
-    type: ADD_CAT,
-    cat
   };
 }
 
