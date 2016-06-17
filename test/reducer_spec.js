@@ -8,7 +8,8 @@ import {
   ADD_CAT,
   FETCH_CATS_REQUEST,
   FETCH_CATS_WIN,
-  FETCH_CATS_FAIL
+  FETCH_CATS_FAIL,
+  SIGN_OUT_OF_FB
 } from '../app/actions';
 
 const initialUser = {
@@ -82,6 +83,20 @@ describe('reducers', () => {
       const nextState = reducer(initialState, fetchWin);
       expect(nextState.cats.length).toBe(1);
       expect(nextState.cats[0]).toEqual(catProfile);
+    });
+
+    it('SIGN_OUT_OF_FB empties the `cats` array in the state', () => {
+      const fetchWin = {
+        type: FETCH_CATS_WIN,
+        catsFromFb: [catProfile]
+      };
+      const catsState = reducer(initialState, fetchWin);
+
+      const signOutAction = {
+        type: SIGN_OUT_OF_FB
+      };
+      const nextState = reducer(catsState, signOutAction);
+      expect(nextState.cats.length).toBe(0);
     });
   });
 

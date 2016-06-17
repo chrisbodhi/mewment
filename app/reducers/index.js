@@ -87,6 +87,8 @@ function cats(state = [], action) {
       return [...state, action.cat];
     case FETCH_CATS_WIN:
       return [...state, ...action.catsFromFb];
+    case SIGN_OUT_OF_FB:
+      return [];
     default:
       return state;
   }
