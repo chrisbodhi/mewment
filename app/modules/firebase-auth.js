@@ -30,7 +30,7 @@ export function fbSignIn() {
             db.ref(`/users/${uid}`).set({ displayName, email, photoURL, providerId, uid });
           }
         });
-      return { user };
+      return user;
     })
     .catch((err) => {
       throw new Error(`error code: ${err.code}\n
