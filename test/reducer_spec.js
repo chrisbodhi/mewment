@@ -1,6 +1,7 @@
 import expect from 'expect';
 
 import reducer from '../app/reducers';
+import { catProfile } from './test_helper';
 import {
   ADD_PROFILE,
   CLEAR_PROFILE,
@@ -22,15 +23,6 @@ const initialState = {
   form: {}
 };
 
-const catProfile = {
-  name: 'Qwerty',
-  age: 1,
-  sex: 'Spayed',
-  color: 'Black',
-  about: 'Stinky',
-  avatar: 'http://bit.ly/1rdk9Us'
-};
-
 describe('reducers', () => {
   describe('profile reducer', () => {
     it('defaults to the initial state', () => {
@@ -39,27 +31,12 @@ describe('reducers', () => {
     });
 
     it('handles ADD_PROFILE', () => {
-      const now = Date.now();
       const action = {
         type: ADD_PROFILE,
-        data: {
-          name: 'Snowball',
-          age: 26,
-          color: 'Black',
-          about: 'Snowball may be the fifth of his name.',
-          profilePhoto: 'gs://',
-          lastUpdated: now
-        }
+        data: catProfile
       };
       const nextState = reducer(initialState, action);
-      expect(nextState.profile).toEqual({
-        name: 'Snowball',
-        age: 26,
-        color: 'Black',
-        about: 'Snowball may be the fifth of his name.',
-        profilePhoto: 'gs://',
-        lastUpdated: now
-      });
+      expect(nextState.profile).toEqual(catProfile);
     });
 
     it('clears out the profile with CLEAR_PROFILE', () => {
@@ -85,8 +62,8 @@ describe('reducers', () => {
     const nextState = reducer(profileState, action);
 
     it('defaults to the initial state', () => {
-      const nextState = reducer(undefined, {});
-      expect(initialState).toEqual(nextState);
+      const nextFromInitState = reducer(undefined, {});
+      expect(initialState).toEqual(nextFromInitState);
     });
 
     it('ADD_CAT moves data from profile to cats', () => {
