@@ -11,6 +11,7 @@ const mockStore = configureMockStore(middlewares);
 
 // todo: don't hardcode this; do better with mocks
 // todo: investigate use of https://github.com/mfncooper/mockery
+// or https://github.com/thlorenz/proxyquire
 const catsFromFb = [
   { about: 'I like laying in the sun and getting my ears rubbed. But don\'t take my kindness for weakness -- I\'ll ruin your shit if need be.', age: '12', color: 'Tabby', name: 'Bonnie' },
   { about: 'things', age: '1', color: 'Null', name: 'A' },
