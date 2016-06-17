@@ -68,10 +68,10 @@ function signOutOfFb() {
   };
 }
 
-function receiveUser(response) {
+function receiveUser(user) {
   return {
     type: RECEIVE_USER,
-    user: response.user
+    user
   };
 }
 
@@ -87,7 +87,8 @@ export function signIn() {
     dispatch(signInWithFb);
     return fbSignIn()
       .then((res) => {
-        dispatch(receiveUser(res));
+        dispatch(receiveUser(res.user));
+        dispatch(fetchCats(res.user.uid));
       })
       .catch((err) => {
         throw new Error(`Err in signIn(): ${err}`);
