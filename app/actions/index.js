@@ -86,9 +86,9 @@ export function signIn() {
   return (dispatch) => {
     dispatch(signInWithFb);
     return fbSignIn()
-      .then((res) => {
-        dispatch(receiveUser(res.user));
-        dispatch(fetchCats(res.user.uid));
+      .then((user) => {
+        dispatch(receiveUser(user));
+        dispatch(fetchCats(user.uid));
       })
       .catch((err) => {
         throw new Error(`Err in signIn(): ${err}`);
