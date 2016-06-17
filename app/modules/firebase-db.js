@@ -2,7 +2,6 @@ import _ from 'lodash';
 import firebase from 'firebase';
 
 const db = firebase.database();
-// todo: there has to be a better way for prepping test runs
 const storageRef = process.env.NODE_ENV ? '' : firebase.storage().ref();
 
 function handleFileSelect(data, uid) {
@@ -10,14 +9,11 @@ function handleFileSelect(data, uid) {
   const metadata = {
     contentType: file.type
   };
-  // todo: ensure name is unique, doesn't overwrite existing photo
   const uploadTask = storageRef.child(uid).child(file.name).put(file, metadata);
 
   return new Promise((resolve, reject) => {
     uploadTask.on('state_changed', (snapshot) => {
       console.log('snapshot', snapshot);
-      // todo: use snapshot data to display percentage of upload complete
-      // https://firebase.google.com/docs/storage/web/upload-files#monitor_upload_progress
     }, (error) => {
       reject(error);
     }, () => {
@@ -44,4 +40,10 @@ export function saveProfileToFb(data) {
         throw new Error(`Error getting cat profile: ${err}`);
       })
     );
+}
+
+export function fetchCatsFromFb(uid) {
+  return db.ref(`/cats/${uid}`)
+    .once('value')
+    .then((snapshot) => snapshot.val());
 }

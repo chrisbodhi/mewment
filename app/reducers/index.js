@@ -8,8 +8,13 @@ import {
   RECEIVE_USER,
   ADD_PROFILE,
   CLEAR_PROFILE,
-  ADD_CAT
+  ADD_CAT,
+  FETCH_CATS_REQUEST,
+  FETCH_CATS_WIN,
+  FETCH_CATS_FAIL
 } from '../actions';
+
+import { defaultStatus } from '../../test/test_helper';
 
 const initialUserState = {
   isFetching: false,
@@ -80,6 +85,31 @@ function cats(state = [], action) {
   switch (action.type) {
     case ADD_CAT:
       return [...state, action.cat];
+    case FETCH_CATS_WIN:
+      return [...state, ...action.catsFromFb];
+    case SIGN_OUT_OF_FB:
+      return [];
+    default:
+      return state;
+  }
+}
+
+function status(state = defaultStatus, action) {
+  const resetStatus = _.assign(
+    {},
+    defaultStatus
+  );
+  switch (action.type) {
+    case FETCH_CATS_REQUEST:
+      return _.assign(
+        {},
+        state,
+        { fetchingCats: true }
+      );
+    case FETCH_CATS_WIN:
+      return resetStatus;
+    case FETCH_CATS_FAIL:
+      return resetStatus;
     default:
       return state;
   }
@@ -89,7 +119,8 @@ const reducers = {
   user: userAuth,
   profile,
   form: formReducer,
-  cats
+  cats,
+  status
 };
 
 // Note: this implicitly passes `state` and `action` args

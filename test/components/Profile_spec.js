@@ -2,6 +2,7 @@ import expect from 'expect';
 import React from 'react';
 import TestUtils from 'react-addons-test-utils';
 import { ProfileContainer, CatProfiles } from '../../app/components/Profile';
+import { catProfile } from '../test_helper';
 
 function profileSetup(uid) {
   const props = {
@@ -22,14 +23,7 @@ function profileSetup(uid) {
 
 function catSetup() {
   const props = {
-    cats: [{
-      name: 'Qwerty',
-      age: 1,
-      sex: 'Spayed',
-      color: 'Black',
-      about: 'Stinky',
-      avatar: 'http://bit.ly/1rdk9Us'
-    }]
+    cats: [catProfile]
   };
 
   const renderer = TestUtils.createRenderer();
@@ -51,7 +45,7 @@ describe('components', () => {
       expect(output.props.className).toBe('row');
       expect(output.props.children.length).toBe(3);
 
-      const [Link, hr] = output.props.children;
+      const [hr, Link] = output.props.children.slice(1);
       expect(Link.props.to).toBe('/profile/add');
       expect(hr.type).toBe('hr');
     });
