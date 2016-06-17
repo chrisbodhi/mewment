@@ -1,5 +1,4 @@
 import expect from 'expect';
-import _ from 'lodash';
 
 import reducer from '../app/reducers';
 import { catProfile, defaultStatus as status } from './test_helper';
@@ -8,7 +7,8 @@ import {
   CLEAR_PROFILE,
   ADD_CAT,
   FETCH_CATS_REQUEST,
-  FETCH_CATS_WIN
+  FETCH_CATS_WIN,
+  FETCH_CATS_FAIL
 } from '../app/actions';
 
 const initialUser = {
@@ -55,22 +55,31 @@ describe('reducers', () => {
   });
 
   describe('cat reducer', () => {
-    const profileState = reducer(initialState, {
-      type: ADD_PROFILE,
-      data: catProfile
-    });
-    const action = {
-      type: ADD_CAT,
-      cat: profileState.profile
-    };
-
     it('defaults to the initial state', () => {
       const nextFromInitState = reducer(undefined, {});
       expect(initialState).toEqual(nextFromInitState);
     });
 
     it('ADD_CAT moves data from profile to cats', () => {
+      const profileState = reducer(initialState, {
+        type: ADD_PROFILE,
+        data: catProfile
+      });
+      const action = {
+        type: ADD_CAT,
+        cat: profileState.profile
+      };
       const nextState = reducer(profileState, action);
+      expect(nextState.cats.length).toBe(1);
+      expect(nextState.cats[0]).toEqual(catProfile);
+    });
+
+    it('FETCH_CATS_WIN adds cat profile from Firebase to cats in state', () => {
+      const fetchWin = {
+        type: FETCH_CATS_WIN,
+        catsFromFb: [catProfile]
+      };
+      const nextState = reducer(initialState, fetchWin);
       expect(nextState.cats.length).toBe(1);
       expect(nextState.cats[0]).toEqual(catProfile);
     });
@@ -103,6 +112,20 @@ describe('reducers', () => {
         catsFromFb: [catProfile]
       };
       const nextState = reducer(inProgressState, fetchWin);
+      expect(nextState.status.fetchingCats).toBe(false);
+    });
+
+    it('FETCH_CATS_FAIL sets `fetchingCats` to false', () => {
+      const fetchAction = {
+        type: FETCH_CATS_REQUEST,
+        uid: '666'
+      };
+      const inProgressState = reducer(initialState, fetchAction);
+      const fetchFail = {
+        type: FETCH_CATS_FAIL,
+        err: 'Too many cats :crying_cat_face:'
+      };
+      const nextState = reducer(inProgressState, fetchFail);
       expect(nextState.status.fetchingCats).toBe(false);
     });
   });
