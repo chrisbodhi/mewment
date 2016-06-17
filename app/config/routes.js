@@ -7,8 +7,8 @@ import { Route, IndexRoute } from 'react-router';
 
 export default (
   <Route path="/" component={Main}>
-    <Route path="/profile" component={Profile} />
-    <Route path="/profile/add" component={addProfile} />
+    <Route path="/profiles" component={Profile} />
+    <Route path="/profiles/add" component={addProfile} />
     <IndexRoute component={Home} /> {/* default route */}
   </Route>
 );
