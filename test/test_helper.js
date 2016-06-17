@@ -6,3 +6,12 @@ export const catProfile = {
   about: 'Stinky',
   avatar: 'http://bit.ly/1rdk9Us'
 };
+
+export const defaultStatus = {
+  photoIsUploading: false,
+  photoUploadSuccess: false,
+  photoUploadError: false,
+  fetchingCats: false,
+  fetchedCatsSuccess: false,
+  fetchedCatsError: false
+};

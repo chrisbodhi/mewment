@@ -1,11 +1,14 @@
 import expect from 'expect';
+import _ from 'lodash';
 
 import reducer from '../app/reducers';
-import { catProfile } from './test_helper';
+import { catProfile, defaultStatus as status } from './test_helper';
 import {
   ADD_PROFILE,
   CLEAR_PROFILE,
-  ADD_CAT
+  ADD_CAT,
+  FETCH_CATS_REQUEST,
+  FETCH_CATS_WIN
 } from '../app/actions';
 
 const initialUser = {
@@ -20,7 +23,8 @@ const initialState = {
   user: initialUser,
   profile: initialProfile,
   cats: initialCats,
-  form: {}
+  form: {},
+  status
 };
 
 describe('reducers', () => {
@@ -59,7 +63,6 @@ describe('reducers', () => {
       type: ADD_CAT,
       cat: profileState.profile
     };
-    const nextState = reducer(profileState, action);
 
     it('defaults to the initial state', () => {
       const nextFromInitState = reducer(undefined, {});
@@ -67,8 +70,40 @@ describe('reducers', () => {
     });
 
     it('ADD_CAT moves data from profile to cats', () => {
+      const nextState = reducer(profileState, action);
       expect(nextState.cats.length).toBe(1);
       expect(nextState.cats[0]).toEqual(catProfile);
+    });
+  });
+
+  describe('status reducer', () => {
+    it('defaults to the initial statuses', () => {
+      const nextState = reducer(undefined, {});
+      expect(initialState).toEqual(nextState);
+    });
+
+    it('FETCH_CATS_REQUEST sets `fetchingCats` to true', () => {
+      expect(initialState.status.fetchingCats).toBe(false);
+      const fetchAction = {
+        type: FETCH_CATS_REQUEST,
+        uid: '666'
+      };
+      const nextState = reducer(initialState, fetchAction);
+      expect(nextState.status.fetchingCats).toBe(true);
+    });
+
+    it('FETCH_CATS_WIN sets `fetchingCats` to false', () => {
+      const fetchAction = {
+        type: FETCH_CATS_REQUEST,
+        uid: '666'
+      };
+      const inProgressState = reducer(initialState, fetchAction);
+      const fetchWin = {
+        type: FETCH_CATS_WIN,
+        catsFromFb: [catProfile]
+      };
+      const nextState = reducer(inProgressState, fetchWin);
+      expect(nextState.status.fetchingCats).toBe(false);
     });
   });
 });
