@@ -2,16 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
+import CatTile from './CatTile.js';
+
 export const CatProfiles = ({ cats }) => (
   <ul>
-    {cats.map((cat, index) => (<li key={index}>
-      <p><strong>Name:</strong> {cat.name}</p>
-      <p><strong>Age:</strong> {cat.age}</p>
-      <p><strong>Breeder:</strong> {cat.sex}</p>
-      <p><strong>Color:</strong> {cat.color}</p>
-      <p><strong>About:</strong> {cat.about}</p>
-      <img src={cat.avatar} alt={`It's ${cat.name}!`} />
-    </li>))}
+    {cats.map((cat, index) => CatTile(cat, index))}
   </ul>
 );
 
@@ -22,14 +17,16 @@ CatProfiles.propTypes = {
 export const ProfileContainer = ({ user, cats }) => (
   user.uid
     ? (
-    <div className="row">
-      {
-        cats && cats.length
-          ? <CatProfiles cats={cats} />
-          : <p>No cats yet! <Link to={'/profile/add'}>Would you like to add one?</Link></p>
-      }
+    <div>
+      <section className="grid">
+        {
+          cats && cats.length
+            ? <CatProfiles cats={cats} />
+            : <p>No cats yet!</p>
+        }
+      </section>
       <hr />
-      <Link to={'/profile/add'}>Would you like to add a profile?</Link>
+      <Link to={'/profiles/add'}>Would you like to add a profile?</Link>
     </div>)
   : (<div>Sign in to access</div>)
 );

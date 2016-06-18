@@ -39,16 +39,17 @@ function catSetup() {
 
 describe('components', () => {
   describe('ProfileContainer', () => {
-    it('should render three elements for a signed-in user', () => {
+    it('should render a div containing three elements for a signed-in user', () => {
       const { output } = profileSetup('1234');
       expect(output.type).toBe('div');
-      expect(output.props.className).toBe('row');
       expect(output.props.children.length).toBe(3);
 
-      const [hr, Link] = output.props.children.slice(1);
-      expect(Link.props.to).toBe('/profile/add');
+      const [section, hr, Link] = output.props.children;
+      expect(section.props.className).toBe('grid');
+      expect(Link.props.to).toBe('/profiles/add');
       expect(hr.type).toBe('hr');
     });
+
     it('should ask an anon user to sign in', () => {
       const { output } = profileSetup('');
       expect(output.type).toBe('div');
@@ -61,12 +62,25 @@ describe('components', () => {
     it('should contain an unordered list', () => {
       expect(output.type).toBe('ul');
     });
+
     it('should contain just one cat', () => {
       expect(output.props.children.length).toBe(1);
     });
+
+    it('should contain a tile class with some boilerplate design stuff', () => {
+      const catLi = output.props.children[0].props.children.props.children;
+
+      expect(output.props.children[0].props.children.props.className).toBe('tile');
+
+      expect(catLi[6].props.children.length).toBe(3);
+      expect(catLi[6].props.onClick).toBeA('function');
+      expect(catLi[7].props.children.length).toBe(3);
+      expect(catLi[7].props.onClick).toBeA('function');
+    });
+
     it('should contain the correct name, age, sex, color, about, and avatar url', () => {
-      const catLi = output.props.children[0].props.children;
-      expect(catLi.length).toBe(6);
+      const catLi = output.props.children[0].props.children.props.children;
+      expect(catLi.length).toBe(8);
 
       expect(catLi[0].props.children).toInclude('Qwerty');
       expect(catLi[1].props.children).toInclude('1');
