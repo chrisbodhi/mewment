@@ -10,10 +10,14 @@ export const AUTH_ERROR = 'AUTH_ERROR';
 export const ADD_PROFILE = 'ADD_PROFILE';
 export const CLEAR_PROFILE = 'CLEAR_PROFILE';
 export const ADD_CAT = 'ADD_CAT';
+
 export const FETCH_CATS = 'FETCH_CATS';
 export const FETCH_CATS_REQUEST = 'FETCH_CATS_REQUEST';
 export const FETCH_CATS_WIN = 'FETCH_CATS_WIN';
 export const FETCH_CATS_FAIL = 'FETCH_CATS_FAIL';
+
+export const ADD_TO_PUBLIC_FEED = 'ADD_TO_PUBLIC_FEED';
+export const ADD_TO_PRIVATE_FEED = 'ADD_TO_PRIVATE_FEED';
 
 // ACTION CREATORS
 
@@ -25,6 +29,7 @@ export function addCat(cat) {
   };
 }
 
+// start of fetching cats from firebase
 function fetchCatsRequest(uid) {
   return {
     type: FETCH_CATS_REQUEST,
@@ -54,6 +59,19 @@ export function fetchCats(uid) {
       .catch((err) => dispatch(fetchCatsFail(err)));
   };
 }
+// end of fetching cats from firebase
+
+// start of adding cat photos to firebase
+export function addPhoto(uid, catId, feed) {
+  const type = feed === 'public' ? ADD_TO_PUBLIC_FEED : ADD_TO_PRIVATE_FEED;
+  return {
+    type,
+    feed,
+    catId,
+    uid
+  };
+}
+// end of adding cat photos to firebase
 
 // User actions
 function signInWithFb() {
