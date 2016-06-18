@@ -67,20 +67,9 @@ describe('components', () => {
       expect(output.props.children.length).toBe(1);
     });
 
-    it('should contain a tile class with some boilerplate design stuff', () => {
-      const catLi = output.props.children[0].props.children.props.children;
-
-      expect(output.props.children[0].props.children.props.className).toBe('tile');
-
-      expect(catLi[6].props.children.length).toBe(3);
-      expect(catLi[6].props.onClick).toBeA('function');
-      expect(catLi[7].props.children.length).toBe(3);
-      expect(catLi[7].props.onClick).toBeA('function');
-    });
-
     it('should contain the correct name, age, sex, color, about, and avatar url', () => {
       const catLi = output.props.children[0].props.children.props.children;
-      expect(catLi.length).toBe(8);
+      expect(catLi.length).toBe(6);
 
       expect(catLi[0].props.children).toInclude('Qwerty');
       expect(catLi[1].props.children).toInclude('1');
