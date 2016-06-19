@@ -13,5 +13,7 @@ export const defaultStatus = {
   photoUploadError: false,
   fetchingCats: false,
   fetchedCatsSuccess: false,
-  fetchedCatsError: false
+  fetchedCatsError: false,
+  showUploadForm: false,
+  catIndexForUpload: null
 };

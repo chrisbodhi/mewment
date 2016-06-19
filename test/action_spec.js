@@ -77,10 +77,12 @@ describe('actions', () => {
     });
 
     it('should create an action to show the file upload component', () => {
+      const index = 1;
       const expectedAction = {
-        type: actions.SHOW_UPLOAD_FORM
+        type: actions.SHOW_UPLOAD_FORM,
+        index
       };
-      expect(actions.showUploadForm()).toEqual(expectedAction);
+      expect(actions.showUploadForm(index)).toEqual(expectedAction);
     });
 
     it('should create an action to add a photo to a cat\'s private feed', () => {

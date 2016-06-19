@@ -63,8 +63,11 @@ export function fetchCats(uid) {
 // end of fetching cats from firebase
 
 // start of adding cat photos
-export function showUploadForm() {
-  return { type: SHOW_UPLOAD_FORM };
+export function showUploadForm(index) {
+  return {
+    type: SHOW_UPLOAD_FORM,
+    index
+  };
 }
 
 export function addPhoto(uid, catId, feed) {

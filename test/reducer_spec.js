@@ -9,7 +9,8 @@ import {
   FETCH_CATS_REQUEST,
   FETCH_CATS_WIN,
   FETCH_CATS_FAIL,
-  SIGN_OUT_OF_FB
+  SIGN_OUT_OF_FB,
+  SHOW_UPLOAD_FORM
 } from '../app/actions';
 
 const initialUser = {
@@ -142,6 +143,17 @@ describe('reducers', () => {
       };
       const nextState = reducer(inProgressState, fetchFail);
       expect(nextState.status.fetchingCats).toBe(false);
+    });
+
+    it('SHOW_UPLOAD_FORM set its respective status to true', () => {
+      const index = 1;
+      const action = {
+        type: SHOW_UPLOAD_FORM,
+        index
+      };
+      const nextState = reducer(initialState, action);
+      expect(nextState.status.showUploadForm).toBe(true);
+      expect(nextState.status.catIndexForUpload).toBe(index);
     });
   });
 });
