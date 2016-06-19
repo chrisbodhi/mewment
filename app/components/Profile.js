@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
-import CatTile from './CatTile.js';
+import CatTile from './CatTile';
 
 export const CatProfiles = ({ cats }) => (
   <ul>
