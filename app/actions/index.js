@@ -16,6 +16,7 @@ export const FETCH_CATS_REQUEST = 'FETCH_CATS_REQUEST';
 export const FETCH_CATS_WIN = 'FETCH_CATS_WIN';
 export const FETCH_CATS_FAIL = 'FETCH_CATS_FAIL';
 
+export const SHOW_UPLOAD_FORM = 'SHOW_UPLOAD_FORM';
 export const ADD_TO_PUBLIC_FEED = 'ADD_TO_PUBLIC_FEED';
 export const ADD_TO_PRIVATE_FEED = 'ADD_TO_PRIVATE_FEED';
 
@@ -61,7 +62,11 @@ export function fetchCats(uid) {
 }
 // end of fetching cats from firebase
 
-// start of adding cat photos to firebase
+// start of adding cat photos
+export function showUploadForm() {
+  return { type: SHOW_UPLOAD_FORM };
+}
+
 export function addPhoto(uid, catId, feed) {
   const type = feed === 'public' ? ADD_TO_PUBLIC_FEED : ADD_TO_PRIVATE_FEED;
   return {
@@ -71,7 +76,7 @@ export function addPhoto(uid, catId, feed) {
     uid
   };
 }
-// end of adding cat photos to firebase
+// end of adding cat photos
 
 // User actions
 function signInWithFb() {

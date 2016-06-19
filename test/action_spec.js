@@ -39,7 +39,7 @@ describe('actions', () => {
       nock.cleanAll();
     });
 
-    xit('should create an action to add a cat', () => {
+    it('should create an action to add a cat', () => {
       const cat = {};
       const expectedAction = {
         type: actions.ADD_CAT,
@@ -74,6 +74,13 @@ describe('actions', () => {
         uid
       };
       expect(actions.addPhoto(uid, catId, 'public')).toEqual(expectedAction);
+    });
+
+    it('should create an action to show the file upload component', () => {
+      const expectedAction = {
+        type: actions.SHOW_UPLOAD_FORM
+      };
+      expect(actions.showUploadForm()).toEqual(expectedAction);
     });
 
     it('should create an action to add a photo to a cat\'s private feed', () => {
