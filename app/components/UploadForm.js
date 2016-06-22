@@ -7,8 +7,8 @@ const Form = (props) => {
   const {
     fields: {
       uid,  // eslint-disable-line
-      id,   // eslint-disable-line
-      imageUrl,
+      catId,   // eslint-disable-line
+      file,
       feed
     },
     handleSubmit,
@@ -30,11 +30,11 @@ const Form = (props) => {
     <form onSubmit={handleSubmit} className={formClass}>
       <div>
         <div className="form-group">
-          <label htmlFor="imageUrl">Add Photo for {name}!</label>
+          <label htmlFor="file">Add Photo for {name}!</label>
           <input
             type="file"
             id="catImage"
-            {...imageUrl}
+            {...file}
             value={null}
           />
         </div>
@@ -86,12 +86,12 @@ Form.propTypes = {
 const UploadForm = reduxForm(
   {
     form: 'file',
-    fields: ['uid', 'id', 'imageUrl', 'feed']
+    fields: ['uid', 'catId', 'file', 'feed']
   },
   (state) => ({
     initialValues: {
       uid: state.user.uid,
-      id: state.status.catIndexForUpload
+      catId: state.status.catIndexForUpload
     }
   })
 )(Form);
