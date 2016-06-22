@@ -1,5 +1,9 @@
 import { fbSignIn, fbSignOut } from '../modules/firebase-auth';
-import { fetchCatsFromFb, saveProfileToFb } from '../modules/firebase-db';
+import {
+  addPhotoToFb,
+  fetchCatsFromFb,
+  saveProfileToFb
+} from '../modules/firebase-db';
 
 // ACTION TYPES
 export const SIGN_IN_WITH_FB = 'SIGN_IN_WITH_FB';
@@ -13,12 +17,13 @@ export const ADD_CAT = 'ADD_CAT';
 
 export const FETCH_CATS = 'FETCH_CATS';
 export const FETCH_CATS_REQUEST = 'FETCH_CATS_REQUEST';
-export const FETCH_CATS_WIN = 'FETCH_CATS_WIN';
-export const FETCH_CATS_FAIL = 'FETCH_CATS_FAIL';
+export const FETCH_CATS_SUCCESS = 'FETCH_CATS_SUCCESS';
+export const FETCH_CATS_ERR = 'FETCH_CATS_ERR';
 
 export const SHOW_UPLOAD_FORM = 'SHOW_UPLOAD_FORM';
-export const ADD_TO_PUBLIC_FEED = 'ADD_TO_PUBLIC_FEED';
-export const ADD_TO_PRIVATE_FEED = 'ADD_TO_PRIVATE_FEED';
+export const ADD_TO_FEED_REQUEST = 'ADD_TO_FEED_REQUEST';
+export const ADD_TO_FEED_SUCCESS = 'ADD_TO_FEED_SUCCESS';
+export const ADD_TO_FEED_ERR = 'ADD_TO_FEED_ERR';
 
 // ACTION CREATORS
 
@@ -38,16 +43,16 @@ function fetchCatsRequest(uid) {
   };
 }
 
-function fetchCatsWin(catsFromFb) {
+function fetchCatsSuccess(catsFromFb) {
   return {
-    type: FETCH_CATS_WIN,
+    type: FETCH_CATS_SUCCESS,
     catsFromFb
   };
 }
 
-function fetchCatsFail(err) {
+function fetchCatsErr(err) {
   return {
-    type: FETCH_CATS_FAIL,
+    type: FETCH_CATS_ERR,
     err
   };
 }
@@ -56,8 +61,8 @@ export function fetchCats(uid) {
   return (dispatch) => {
     dispatch(fetchCatsRequest(uid));
     return fetchCatsFromFb(uid)
-      .then((catsFromFb) => dispatch(fetchCatsWin(catsFromFb)))
-      .catch((err) => dispatch(fetchCatsFail(err)));
+      .then((catsFromFb) => dispatch(fetchCatsSuccess(catsFromFb)))
+      .catch((err) => dispatch(fetchCatsErr(err)));
   };
 }
 // end of fetching cats from firebase
@@ -70,13 +75,36 @@ export function showUploadForm(index) {
   };
 }
 
-export function addPhoto(uid, catId, feed) {
-  const type = feed === 'public' ? ADD_TO_PUBLIC_FEED : ADD_TO_PRIVATE_FEED;
+function addToFeedRequest({ uid, catId, feed }) {
   return {
-    type,
-    feed,
+    type: ADD_TO_FEED_REQUEST,
+    uid,
     catId,
-    uid
+    feed
+  };
+}
+
+// todo: this action updates the state through the reducer
+function addToFeedSuccess(imgObj) {
+  return {
+    type: ADD_TO_FEED_SUCCESS,
+    image: imgObj.image
+  };
+}
+
+function addToFeedErr(err) {
+  return {
+    type: ADD_TO_FEED_ERR,
+    err
+  };
+}
+
+export function addPhoto({ uid, catId, feed, file }) {
+  return (dispatch) => {
+    dispatch(addToFeedRequest({ uid, catId, feed }));
+    return addPhotoToFb({ uid, catId, feed, file })
+      .then((imgObj) => dispatch(addToFeedSuccess(imgObj)))
+      .catch((err) => dispatch(addToFeedErr(err)));
   };
 }
 // end of adding cat photos
