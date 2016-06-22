@@ -8,6 +8,8 @@ import { catProfile } from './test_helper';
 // import both types and functions
 import * as actions from '../app/actions';
 
+import { addPhotoToFb } from '../app/modules/firebase-db';
+
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
@@ -33,13 +35,13 @@ const mockStore = configureMockStore(middlewares);
 const catsFromFb = [catProfile];
 const uid = '685030558304560';
 
-describe('actions', () => {
-  describe('cat actions', () => {
+describe('Actions', () => {
+  describe('Cat Actions', () => {
     afterEach(() => {
       nock.cleanAll();
     });
 
-    it('should create an action to add a cat', () => {
+    it('creates an action to add a cat', () => {
       const cat = {};
       const expectedAction = {
         type: actions.ADD_CAT,
@@ -48,14 +50,14 @@ describe('actions', () => {
       expect(actions.addCat(cat)).toEqual(expectedAction);
     });
 
-    xit('should create an action to fetch cats from Firebase', () => {
+    xit('creates an action to fetch cats from Firebase', () => {
       nock('https://project-3398608299508035534.firebaseio.com')
         .get(`/cats/${uid}`)
         .reply(200, { catsFromFb });
 
       const expectedActions = [
         { type: actions.FETCH_CATS_REQUEST, uid },
-        { type: actions.FETCH_CATS_WIN, catsFromFb }
+        { type: actions.FETCH_CATS_SUCCESS, catsFromFb }
       ];
       const store = mockStore({ catsFromFb });
 
@@ -65,18 +67,7 @@ describe('actions', () => {
         });
     });
 
-    it('should create an action to add a photo to a cat\'s public feed', () => {
-      const catId = '1';
-      const expectedAction = {
-        type: actions.ADD_TO_PUBLIC_FEED,
-        feed: 'public',
-        catId,
-        uid
-      };
-      expect(actions.addPhoto(uid, catId, 'public')).toEqual(expectedAction);
-    });
-
-    it('should create an action to show the file upload component', () => {
+    it('creates an action to show the file upload component', () => {
       const index = 1;
       const expectedAction = {
         type: actions.SHOW_UPLOAD_FORM,
@@ -85,20 +76,41 @@ describe('actions', () => {
       expect(actions.showUploadForm(index)).toEqual(expectedAction);
     });
 
-    it('should create an action to add a photo to a cat\'s private feed', () => {
+    xit('creates ADD_TO_FEED_SUCCESS when a photo has been added to a feed', () => {
+      const feed = 'public';
       const catId = '1';
-      const expectedAction = {
-        type: actions.ADD_TO_PRIVATE_FEED,
-        feed: 'private',
-        catId,
-        uid
-      };
-      expect(actions.addPhoto(uid, catId, 'private')).toEqual(expectedAction);
+      nock('').get('/todos').reply(200, { body: { todos: ['a', 'b'] } });
+      const expectedActions = [
+        { type: actions.ADD_TO_FEED_REQUEST },
+        { type: actions.ADD_TO_FEED_SUCCESS, body: { todos: ['a', 'b'] } }
+      ];
+      const store = mockStore({ todos: [] });
+
+      return store.dispatch(actions.addPhoto({ uid, catId, feed }))
+        .then(() => {
+          expect(store.getActions()).toEqual(expectedActions);
+        });
+    });
+
+    xit('creates ADD_TO_FEED_ERR when photo upload fails', () => {
+      const feed = 'public';
+      const catId = '1';
+      nock('').get('/todos').reply(500, { body: { error: 'err string' } });
+      const expectedActions = [
+        { type: actions.ADD_TO_FEED_REQUEST },
+        { type: actions.ADD_TO_FEED_ERR, body: { error: 'err string' } }
+      ];
+      const store = mockStore({ todos: [] });
+
+      return store.dispatch(actions.addPhoto({ uid, catId, feed }))
+        .then(() => {
+          expect(store.getActions()).toEqual(expectedActions);
+        });
     });
   });
 
-  describe('profile actions', () => {
-    it('should create an action to clear the profile', () => {
+  describe('Profile Actions', () => {
+    it('creates an action to clear the profile', () => {
       const expectedAction = {
         type: actions.CLEAR_PROFILE
       };
