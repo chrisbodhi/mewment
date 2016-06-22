@@ -3,10 +3,11 @@ import { reduxForm } from 'redux-form';
 import classNames from 'classnames';
 
 const Form = (props) => {
+  // eslint note: `uid` & `id` used with `initialValues` in reduxForm()
   const {
     fields: {
-      uid,
-      id,
+      uid,  // eslint-disable-line
+      id,   // eslint-disable-line
       imageUrl,
       feed
     },
@@ -17,18 +18,25 @@ const Form = (props) => {
     cats
   } = props;
 
+  // Sets the class -- and therefore styling -- of the image upload form
   const formClass = classNames(feed.value,
     { shown: status.showUploadForm },
     { hidden: !status.showUploadForm }
   );
+
   const index = status.catIndexForUpload;
   const name = index !== null ? cats[index].name : '';
   return (
     <form onSubmit={handleSubmit} className={formClass}>
       <div>
-        <label>Add Photo for {name}</label>
-        <div>
-          <input type="file" {...imageUrl} value={null} />
+        <div className="form-group">
+          <label htmlFor="imageUrl">Add Photo for {name}!</label>
+          <input
+            type="file"
+            id="catImage"
+            {...imageUrl}
+            value={null}
+          />
         </div>
         <div>
           <label className="radio-inline">
@@ -49,10 +57,6 @@ const Form = (props) => {
             />
             Public
           </label>
-        </div>
-        <div>
-          <input type="hidden" value={uid} />
-          <input type="hidden" value={id} />
         </div>
         <div>
           <button type="submit" disabled={submitting}>
@@ -77,12 +81,19 @@ Form.propTypes = {
   resetForm: React.PropTypes.func.isRequired,
   status: React.PropTypes.object.isRequired,
   submitting: React.PropTypes.bool.isRequired
-
 };
 
-const UploadForm = reduxForm({
-  form: 'file',
-  fields: ['uid', 'id', 'imageUrl', 'feed']
-})(Form);
+const UploadForm = reduxForm(
+  {
+    form: 'file',
+    fields: ['uid', 'id', 'imageUrl', 'feed']
+  },
+  (state) => ({
+    initialValues: {
+      uid: state.user.uid,
+      id: state.status.catIndexForUpload
+    }
+  })
+)(Form);
 
 export default UploadForm;
