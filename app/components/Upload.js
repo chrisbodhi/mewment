@@ -3,10 +3,11 @@ import { connect } from 'react-redux';
 
 import CatList from './CatList';
 import UploadForm from './UploadForm';
+import { addPhoto } from '../actions';
 
 class UploadContainer extends React.Component {
   handleSubmit(e) {
-    console.log('in handleSubmit with', e);
+    this.props.dispatch(addPhoto(e));
   }
 
   render() {
