@@ -7,10 +7,11 @@ import {
   CLEAR_PROFILE,
   ADD_CAT,
   FETCH_CATS_REQUEST,
-  FETCH_CATS_WIN,
-  FETCH_CATS_FAIL,
+  FETCH_CATS_SUCCESS,
+  FETCH_CATS_ERR,
   SIGN_OUT_OF_FB,
-  SHOW_UPLOAD_FORM
+  SHOW_UPLOAD_FORM,
+  ADD_TO_FEED_SUCCESS
 } from '../app/actions';
 
 const initialUser = {
@@ -76,9 +77,9 @@ describe('reducers', () => {
       expect(nextState.cats[0]).toEqual(catProfile);
     });
 
-    it('FETCH_CATS_WIN adds cat profile from Firebase to cats in state', () => {
+    it('FETCH_CATS_SUCCESS adds cat profile from Firebase to cats in state', () => {
       const fetchWin = {
-        type: FETCH_CATS_WIN,
+        type: FETCH_CATS_SUCCESS,
         catsFromFb: [catProfile]
       };
       const nextState = reducer(initialState, fetchWin);
@@ -88,7 +89,7 @@ describe('reducers', () => {
 
     it('SIGN_OUT_OF_FB empties the `cats` array in the state', () => {
       const fetchWin = {
-        type: FETCH_CATS_WIN,
+        type: FETCH_CATS_SUCCESS,
         catsFromFb: [catProfile]
       };
       const catsState = reducer(initialState, fetchWin);
@@ -98,6 +99,14 @@ describe('reducers', () => {
       };
       const nextState = reducer(catsState, signOutAction);
       expect(nextState.cats.length).toBe(0);
+    });
+
+    xit('adds uploaded photos to the cat state', () => {
+      // todo: pass in 'public' or 'private'
+      // const addedToFeed = {
+      //   type: ADD_TO_FEED_SUCCESS,
+      //   image: uploadedImg.image
+      // };
     });
   });
 
@@ -117,28 +126,28 @@ describe('reducers', () => {
       expect(nextState.status.fetchingCats).toBe(true);
     });
 
-    it('FETCH_CATS_WIN sets `fetchingCats` to false', () => {
+    it('FETCH_CATS_SUCCESS sets `fetchingCats` to false', () => {
       const fetchAction = {
         type: FETCH_CATS_REQUEST,
         uid: '666'
       };
       const inProgressState = reducer(initialState, fetchAction);
       const fetchWin = {
-        type: FETCH_CATS_WIN,
+        type: FETCH_CATS_SUCCESS,
         catsFromFb: [catProfile]
       };
       const nextState = reducer(inProgressState, fetchWin);
       expect(nextState.status.fetchingCats).toBe(false);
     });
 
-    it('FETCH_CATS_FAIL sets `fetchingCats` to false', () => {
+    it('FETCH_CATS_ERR sets `fetchingCats` to false', () => {
       const fetchAction = {
         type: FETCH_CATS_REQUEST,
         uid: '666'
       };
       const inProgressState = reducer(initialState, fetchAction);
       const fetchFail = {
-        type: FETCH_CATS_FAIL,
+        type: FETCH_CATS_ERR,
         err: 'Too many cats :crying_cat_face:'
       };
       const nextState = reducer(inProgressState, fetchFail);
