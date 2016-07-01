@@ -4,7 +4,7 @@ import thunkMiddleware from 'redux-thunk';
 import createLogger from 'redux-logger';
 
 import { Provider } from 'react-redux';
-import { Router } from 'react-router';
+import { browserHistory, Router } from 'react-router';
 import { createStore, applyMiddleware } from 'redux';
 
 import routes from './config/routes';
@@ -22,7 +22,7 @@ const store = createStore(
 
 ReactDOM.render(
   <Provider store={store}>
-    <Router>{routes}</Router>
+    <Router history={browserHistory}>{routes}</Router>
   </Provider>,
   document.getElementById('root')
 );
