@@ -9,7 +9,7 @@ const FormContainer = (props) => {
       sex,
       color,
       about,
-      avatar
+      file
     },
     handleSubmit,
     onSubmit,
@@ -103,23 +103,28 @@ const FormContainer = (props) => {
         </div>
 
         <div className="form-group">
-          <label htmlFor="avatar">Profile Photo</label>
+          <label htmlFor="file">Profile Photo</label>
           <input
             type="file"
-            id="avatar"
-            {...avatar}
+            id="file"
+            {...file}
             value={null}
           />
         </div>
 
-        <button type="submit" className="btn btn-primary btn-lg" disabled={submitting}>
+        <button
+          type="submit"
+          className="btn btn-primary btn-lg"
+          disabled={submitting}
+        >
           {submitting ? <i /> : <i className="fa fa-paper-plane" />} Add Profile
         </button>
         <button
           type="submit"
           className="btn btn-default btn-lg"
           disabled={submitting}
-          onClick={resetForm}>
+          onClick={resetForm}
+        >
           {submitting ? <i /> : <i />} Clear Form
         </button>
       </form>
@@ -136,7 +141,7 @@ FormContainer.propTypes = {
 
 const ProfileForm = reduxForm({
   form: 'profile',
-  fields: ['name', 'age', 'sex', 'color', 'about', 'avatar']
+  fields: ['name', 'age', 'sex', 'color', 'about', 'file']
 })(FormContainer);
 
 export default ProfileForm;

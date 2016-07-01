@@ -5,7 +5,7 @@ const db = firebase.database();
 const storageRef = process.env.NODE_ENV ? '' : firebase.storage().ref();
 
 function handleFileSelect(data, uid) {
-  const file = data.avatar[0];
+  const file = data.file[0];
   const metadata = {
     contentType: file.type
   };
@@ -18,8 +18,8 @@ function handleFileSelect(data, uid) {
       reject(error);
     }, () => {
       console.log('Uploaded', uploadTask.snapshot.totalBytes, 'bytes.');
-      const avatar = uploadTask.snapshot.metadata.downloadURLs[0];
-      resolve(avatar);
+      const image = uploadTask.snapshot.metadata.downloadURLs[0];
+      resolve(image);
     });
   });
 }
@@ -46,4 +46,17 @@ export function fetchCatsFromFb(uid) {
   return db.ref(`/cats/${uid}`)
     .once('value')
     .then((snapshot) => snapshot.val());
+}
+
+export function addPhotoToFb(data) {
+  const { uid, catId, feed } = data;
+  return handleFileSelect(data, uid)
+    .then((image) => {
+      db.ref(`/cats/${uid}/${catId}/${feed}`)
+        .push(image);
+      return { image };
+    })
+    .catch((err) => {
+      throw new Error(`Error uploading cat image: ${err}`);
+    });
 }

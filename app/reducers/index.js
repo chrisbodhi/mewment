@@ -10,8 +10,10 @@ import {
   CLEAR_PROFILE,
   ADD_CAT,
   FETCH_CATS_REQUEST,
-  FETCH_CATS_WIN,
-  FETCH_CATS_FAIL
+  FETCH_CATS_SUCCESS,
+  FETCH_CATS_ERR,
+  SHOW_UPLOAD_FORM,
+  ADD_TO_FEED_ERR
 } from '../actions';
 
 import { defaultStatus } from '../../test/test_helper';
@@ -85,7 +87,7 @@ function cats(state = [], action) {
   switch (action.type) {
     case ADD_CAT:
       return [...state, action.cat];
-    case FETCH_CATS_WIN:
+    case FETCH_CATS_SUCCESS:
       return [...state, ...action.catsFromFb];
     case SIGN_OUT_OF_FB:
       return [];
@@ -106,10 +108,25 @@ function status(state = defaultStatus, action) {
         state,
         { fetchingCats: true }
       );
-    case FETCH_CATS_WIN:
+    case FETCH_CATS_SUCCESS:
       return resetStatus;
-    case FETCH_CATS_FAIL:
+    case FETCH_CATS_ERR:
       return resetStatus;
+    case SHOW_UPLOAD_FORM:
+      return _.assign(
+        {},
+        state,
+        {
+          showUploadForm: true,
+          catIndexForUpload: action.index
+        }
+      );
+    case ADD_TO_FEED_ERR:
+      return _.assign(
+        {},
+        state,
+        { fetchedCatsError: true }
+      );
     default:
       return state;
   }
