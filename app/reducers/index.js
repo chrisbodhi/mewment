@@ -12,7 +12,8 @@ import {
   FETCH_CATS_REQUEST,
   FETCH_CATS_SUCCESS,
   FETCH_CATS_ERR,
-  SHOW_UPLOAD_FORM
+  SHOW_UPLOAD_FORM,
+  ADD_TO_FEED_ERR
 } from '../actions';
 
 import { defaultStatus } from '../../test/test_helper';
@@ -119,6 +120,12 @@ function status(state = defaultStatus, action) {
           showUploadForm: true,
           catIndexForUpload: action.index
         }
+      );
+    case ADD_TO_FEED_ERR:
+      return _.assign(
+        {},
+        state,
+        { fetchedCatsError: true }
       );
     default:
       return state;

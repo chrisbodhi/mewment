@@ -95,10 +95,12 @@ describe('Actions', () => {
     xit('creates ADD_TO_FEED_ERR when photo upload fails', () => {
       const feed = 'public';
       const catId = '1';
-      nock('').get('/todos').reply(500, { body: { error: 'err string' } });
+      nock('localhost:8080')
+        .get('/todos')
+        .reply(500, { body: { error: 'err string' } });
       const expectedActions = [
         { type: actions.ADD_TO_FEED_REQUEST },
-        { type: actions.ADD_TO_FEED_ERR, body: { error: 'err string' } }
+        { type: actions.ADD_TO_FEED_ERR, err: 'err string' }
       ];
       const store = mockStore({ todos: [] });
 

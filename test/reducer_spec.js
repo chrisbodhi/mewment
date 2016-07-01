@@ -11,7 +11,8 @@ import {
   FETCH_CATS_ERR,
   SIGN_OUT_OF_FB,
   SHOW_UPLOAD_FORM,
-  ADD_TO_FEED_SUCCESS
+  ADD_TO_FEED_SUCCESS,
+  ADD_TO_FEED_ERR
 } from '../app/actions';
 
 const initialUser = {
@@ -100,14 +101,6 @@ describe('reducers', () => {
       const nextState = reducer(catsState, signOutAction);
       expect(nextState.cats.length).toBe(0);
     });
-
-    xit('adds uploaded photos to the cat state', () => {
-      // todo: pass in 'public' or 'private'
-      // const addedToFeed = {
-      //   type: ADD_TO_FEED_SUCCESS,
-      //   image: uploadedImg.image
-      // };
-    });
   });
 
   describe('status reducer', () => {
@@ -163,6 +156,15 @@ describe('reducers', () => {
       const nextState = reducer(initialState, action);
       expect(nextState.status.showUploadForm).toBe(true);
       expect(nextState.status.catIndexForUpload).toBe(index);
+    });
+
+    it('ADD_TO_FEED_ERR sets photoUploadError to true', () => {
+      const action = {
+        type: ADD_TO_FEED_ERR,
+        err: 'err string'
+      }
+      const nextState = reducer(initialState, action);
+      expect(nextState.status.fetchedCatsError).toBe(true)
     });
   });
 });
