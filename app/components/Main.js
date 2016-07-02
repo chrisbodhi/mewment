@@ -1,16 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import SignIn from './SignIn';
+import { Header } from './Header';
 
-const MainContainer = ({ children, user }) => (
+const MainContainer = ({ children }) => (
   <div className="main-container">
-    {/* Header component goes here */}
-    <nav className="navbar navbar-default" role="navigation">
-      <div className="col-sm-7 col-sm-offset-2" style={{ marginTop: 15 }}>
-        <SignIn uid={user.uid || ''} />
-      </div>
-    </nav>
+    {/* Must pass in `children` to get active links in navbar */}
+    <Header children={children} />
     <div className="container">
       {children}
     </div>
@@ -18,8 +14,7 @@ const MainContainer = ({ children, user }) => (
 );
 
 MainContainer.propTypes = {
-  children: React.PropTypes.object.isRequired,
-  user: React.PropTypes.object.isRequired
+  children: React.PropTypes.object.isRequired
 };
 
 const mapStateToMainContainerProps = (state) => ({ user: state.user });
