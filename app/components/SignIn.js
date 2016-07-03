@@ -2,25 +2,30 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { signIn, signOut } from '../actions';
 
-const SignInContainer = (props) => {
-  const { uid, dispatch } = props;
-  return (<div>{
-      uid
-        ? (<button onClick={() => dispatch(signOut())}>
-          Sign Out
-        </button>)
+const SignInContainer = ({ user, dispatch, location }) => (
+  <div className={`signin-${location}`}>{
+    user.uid
+      ? (<button onClick={() => dispatch(signOut())}>
+        Sign Out
+      </button>)
 
-        : (<button onClick={() => dispatch(signIn())}>
-          Sign in with FB
-        </button>)
-    }</div>);
-};
+      : (<a className="btn btn-lg" onClick={() => dispatch(signIn())}>
+        <i className="fa fa-facebook"></i>
+        Sign in with Facebook
+      </a>)
+  }</div>
+);
 
 SignInContainer.propTypes = {
-  uid: React.PropTypes.string.isRequired,
-  dispatch: React.PropTypes.func.isRequired
+  user: React.PropTypes.shape({
+    uid: React.PropTypes.string.isRequired
+  }).isRequired,
+  dispatch: React.PropTypes.func.isRequired,
+  location: React.PropTypes.string
 };
 
-const SignIn = connect()(SignInContainer);
+
+const mapStateToSignInContainerProps = (state) => ({ user: state.user });
+const SignIn = connect(mapStateToSignInContainerProps)(SignInContainer);
 
 export default SignIn;

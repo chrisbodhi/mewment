@@ -37,7 +37,7 @@ function catSetup() {
   };
 }
 
-describe('components', () => {
+describe('Components', () => {
   describe('ProfileContainer', () => {
     it('should render a div containing three elements for a signed-in user', () => {
       const { output } = profileSetup('1234');
