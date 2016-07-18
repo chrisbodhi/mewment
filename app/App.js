@@ -11,6 +11,8 @@ import routes from './config/routes';
 import app from './reducers';
 import { loadState, saveState } from './modules/localStorage';
 
+require('../public/styles/index.less');
+
 const loggerMiddleware = createLogger();
 
 const persistedState = loadState();

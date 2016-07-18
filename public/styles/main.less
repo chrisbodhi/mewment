@@ -1,0 +1,14 @@
+html, body, #root, #root > .main-container {
+  height: 100%;
+}
+
+#main {
+  min-height: 100%;
+  margin-bottom: -4em;
+
+  &:after {
+    content: "";
+    display: block;
+    height: 4em;
+  }
+}
