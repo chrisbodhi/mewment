@@ -4,7 +4,9 @@ export const catProfile = {
   sex: 'Spayed',
   color: 'Black',
   about: 'Stinky',
-  avatar: 'http://bit.ly/1rdk9Us'
+  avatar: 'http://bit.ly/1rdk9Us',
+  public: [],
+  private: []
 };
 
 export const defaultStatus = {
