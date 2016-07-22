@@ -5,8 +5,8 @@ export const catProfile = {
   color: 'Black',
   about: 'Stinky',
   avatar: 'http://bit.ly/1rdk9Us',
-  public: [],
-  private: []
+  public: {},
+  private: {}
 };
 
 export const defaultStatus = {
