@@ -5,7 +5,11 @@ export const catProfile = {
   color: 'Black',
   about: 'Stinky',
   avatar: 'http://bit.ly/1rdk9Us',
-  public: {},
+  public: {
+    firebaseKey1: 'https://placekitten.com/200/300',
+    firebaseKey2: 'https://placekitten.com/300/300',
+    firebaseKey3: 'https://placekitten.com/400/300',
+  },
   private: {}
 };
 
