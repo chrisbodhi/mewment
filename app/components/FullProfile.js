@@ -1,8 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-export const FullProfileContainer = ({ cat }) => (
-  <div>
+import PhotoGrid from './PhotoGrid';
+import Wishlist from './Wishlist';
+
+export const FullProfileContainer = ({ user, cat }) => (
+  <div id="fullProfile">
     <div id="mainImage">
       <img src={cat.avatar} alt={`It's ${cat.name}!`} />
     </div>
@@ -14,10 +17,18 @@ export const FullProfileContainer = ({ cat }) => (
         <span className="sex">{cat.sex}</span>
       </h3>
     </div>
+    <PhotoGrid photos={cat.public} />
+    <div id="profile">
+      {cat.about}
+    </div>
+    <Wishlist uid={user.uid} id={cat.id} />
   </div>
 );
 
 FullProfileContainer.propTypes = {
+  user: React.PropTypes.shape({
+    uid: React.PropTypes.string.isRequired
+  }).isRequired,
   cat: React.PropTypes.shape.isRequired
 };
 

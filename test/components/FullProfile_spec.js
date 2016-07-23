@@ -1,6 +1,8 @@
+import _ from 'lodash';
 import expect from 'expect';
 import React from 'react';
 import TestUtils from 'react-addons-test-utils';
+
 import { FullProfileContainer as FullProfile } from '../../app/components/FullProfile';
 
 import { catProfile } from '../test_helper';
@@ -24,7 +26,13 @@ function profileSetup(uid) {
 
 describe('Component: FullProfile', () => {
   const { output } = profileSetup('1234');
-  const [mainImgDiv, heading] = output.props.children;
+  const [
+    mainImgDiv,
+    heading,
+    photoGrid,
+    profile,
+    wishlist
+  ] = output.props.children;
 
   it('renders the main profile photo div', () => {
     expect(mainImgDiv.type).toBe('div');
@@ -32,7 +40,7 @@ describe('Component: FullProfile', () => {
     expect(mainImgDiv.props.children.type).toBe('img');
   });
 
-  it('renders the main profile photo div', () => {
+  it('renders the main profile img', () => {
     const mainImg = mainImgDiv.props.children;
     expect(mainImg.props.alt).toInclude(catProfile.name);
     expect(mainImg.props.src).toBe(catProfile.avatar);
@@ -67,5 +75,23 @@ describe('Component: FullProfile', () => {
 
     expect(sex.props.className).toBe('sex');
     expect(sex.props.children).toBe(catProfile.sex);
+  });
+
+  // Testing of custom components happens in their respective specs
+  it('renders all of the cat\'s photos', () => {
+    expect(photoGrid).toExist();
+    expect(photoGrid.type).toBeA('function');
+  });
+
+  it('renders the cat\'s profile', () => {
+    expect(profile.type).toBe('div');
+    expect(profile.props.id).toBe('profile');
+    expect(profile.props.children).toBe(catProfile.about);
+  });
+
+  // Same
+  it('renders the shopping wishlist', () => {
+    expect(wishlist).toExist();
+    expect(wishlist.type).toBeA('function');
   });
 });
