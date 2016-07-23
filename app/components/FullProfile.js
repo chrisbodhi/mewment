@@ -29,7 +29,7 @@ FullProfileContainer.propTypes = {
   user: React.PropTypes.shape({
     uid: React.PropTypes.string.isRequired
   }).isRequired,
-  cat: React.PropTypes.shape.isRequired
+  cat: React.PropTypes.object.isRequired
 };
 
 const mapStateToFullProfileContainerProps = (state) => ({ user: state.user, cats: state.cats });
