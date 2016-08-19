@@ -10,7 +10,20 @@ export const catProfile = {
     firebaseKey2: 'https://placekitten.com/300/300',
     firebaseKey3: 'https://placekitten.com/400/300',
   },
-  private: {}
+  private: {},
+  wishlist: {
+    toys: [
+      { name: 'Mouse', link: 'http://amzn.co/mousey' },
+      { name: 'Bird', link: 'http://amzn.co/birdy' }
+    ],
+    food: [
+      { name: 'dry food', link: 'http://amzn.co/dry' },
+      { name: 'canned food', link: 'http://amzn.co/canned' }
+    ],
+    litter: [
+      { name: 'littering', link: 'http://amzn.co/litter' }
+    ]
+  }
 };
 
 export const defaultStatus = {
