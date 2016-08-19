@@ -6,7 +6,7 @@ import ProfileForm from './ProfileForm';
 import ProfilePreview from './ProfilePreview';
 import { addProfile as saveProfile } from '../actions';
 
-class addProfileContainer extends React.Component {
+class AddProfileContainer extends React.Component {
   handleSubmit(e) {
     const data = _.assign({}, e, { lastUpdated: Date.now() });
     this.props.dispatch(saveProfile(data));
@@ -32,7 +32,7 @@ class addProfileContainer extends React.Component {
   }
 }
 
-addProfileContainer.propTypes = {
+AddProfileContainer.propTypes = {
   dispatch: React.PropTypes.func.isRequired,
   user: React.PropTypes.shape({
     uid: React.PropTypes.string.isRequired
@@ -40,6 +40,6 @@ addProfileContainer.propTypes = {
 };
 
 const mapStateToProfileContainerProps = (state) => ({ user: state.user });
-const addProfile = connect(mapStateToProfileContainerProps)(addProfileContainer);
+const AddProfile = connect(mapStateToProfileContainerProps)(AddProfileContainer);
 
-export default addProfile;
+export default AddProfile;
