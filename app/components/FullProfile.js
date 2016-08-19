@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import PhotoGrid from './PhotoGrid';
+import Wishlist from './Wishlist';
 
 export const FullProfileContainer = ({ cat }) => (
   <div id="fullProfile">
@@ -20,8 +21,13 @@ export const FullProfileContainer = ({ cat }) => (
     <div id="profile">
       {cat.about}
     </div>
+    <Wishlist wishlist={cat.wishlist} />
   </div>
 );
+
+// might need to change to class being extended
+// on componentDidMount, get `cat` from the state
+// object -- `state.cats[this.props.params.id]`
 
 FullProfileContainer.propTypes = {
   cat: React.PropTypes.shape({
