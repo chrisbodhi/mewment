@@ -121,24 +121,24 @@ const FormContainer = (props) => {
               <input
                 type="radio"
                 {...wishlist}
-                value="brand-a-dry-food"
-                checked={wishlist.value === 'brand-a-dry-food'}
+                value="food|brand-a-dry-food|http://a.com/dry"
+                checked={wishlist.value === 'food|brand-a-dry-food|http://a.com/dry'}
               />
             </label>
             <label className="radio-inline">
               <input
                 type="radio"
                 {...wishlist}
-                value="b-brand-wet-food"
-                checked={wishlist.value === 'b-brand-wet-food'}
+                value="food|b-brand-wet-food|http://a.com/wet"
+                checked={wishlist.value === 'food|b-brand-wet-food|http://a.com/wet'}
               />
             </label>
             <label className="radio-inline">
               <input
                 type="radio"
                 {...wishlist}
-                value="fictional-gravy"
-                checked={wishlist.value === 'fictional-gravy'}
+                value="food|fictional-gravy|http://a.com/gravy"
+                checked={wishlist.value === 'food|fictional-gravy|http://a.com/gravy'}
               />
             </label>
           </div>
