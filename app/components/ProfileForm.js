@@ -9,7 +9,8 @@ const FormContainer = (props) => {
       sex,
       color,
       about,
-      file
+      file,
+      wishlist
     },
     handleSubmit,
     onSubmit,
@@ -112,6 +113,37 @@ const FormContainer = (props) => {
           />
         </div>
 
+        <div className="form-group">
+          <label htmlFor="wishlist" required>Wishlist</label>
+          <div>
+            <h4>Food <span className="wishlist-note">pick just one</span></h4>
+            <label className="radio-inline">
+              <input
+                type="radio"
+                {...wishlist}
+                value="brand-a-dry-food"
+                checked={wishlist.value === 'brand-a-dry-food'}
+              />
+            </label>
+            <label className="radio-inline">
+              <input
+                type="radio"
+                {...wishlist}
+                value="b-brand-wet-food"
+                checked={wishlist.value === 'b-brand-wet-food'}
+              />
+            </label>
+            <label className="radio-inline">
+              <input
+                type="radio"
+                {...wishlist}
+                value="fictional-gravy"
+                checked={wishlist.value === 'fictional-gravy'}
+              />
+            </label>
+          </div>
+        </div>
+
         <button
           type="submit"
           className="btn btn-primary btn-lg"
@@ -141,7 +173,7 @@ FormContainer.propTypes = {
 
 const ProfileForm = reduxForm({
   form: 'profile',
-  fields: ['name', 'age', 'sex', 'color', 'about', 'file']
+  fields: ['name', 'age', 'sex', 'color', 'about', 'file', 'wishlist']
 })(FormContainer);
 
 export default ProfileForm;
