@@ -12,6 +12,8 @@ const PureProfilePreview = (props) => (
     <hr />
     <h4>Color: {_.get(props, 'profile.color.value', '')}</h4>
     <hr />
+    <h4>Wishlist: {_.get(props, 'profile.wishlist.value', '')}</h4>
+    <hr />
     <h4>About: {_.get(props, 'profile.about.value', '')}</h4>
     <hr />
   </div>
