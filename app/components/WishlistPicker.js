@@ -10,7 +10,7 @@ const WishlistPicker = (props) => {
           <input
             key={`${category}-choice-${ind}`}
             type="radio"
-            {...wishlist}
+            {...wishlist[category]}
             value={choice.value}
             checked={wishlist[category].value === choice.value}
           />
