@@ -15,6 +15,27 @@ class AddProfileContainer extends React.Component {
   }
 
   render() {
+    const products = [
+      { category: 'food',
+        choices: [
+          { value: 'food-1' },
+          { value: 'food-2' }
+        ]
+      },
+      { category: 'litter',
+        choices: [
+          { value: 'litter-1' },
+          { value: 'litter-2' }
+        ]
+      },
+      { category: 'toys',
+        choices: [
+          { value: 'toys-1' },
+          { value: 'toys-2' }
+        ]
+      }
+    ];
+
     return (
       <div className="row">
         {
@@ -22,7 +43,10 @@ class AddProfileContainer extends React.Component {
             ? (
             <div className="profile">
               <h2 className="text-center">Profile</h2>
-              <ProfileForm onSubmit={(e) => this.handleSubmit(e)} />
+              <ProfileForm
+                onSubmit={(e) => this.handleSubmit(e)}
+                products={products}
+              />
               <ProfilePreview />
             </div>)
           : (<div>Sign in to access</div>)
