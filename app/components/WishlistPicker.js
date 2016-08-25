@@ -22,7 +22,9 @@ const WishlistPicker = (props) => {
 };
 
 WishlistPicker.propTypes = {
-  wishlist: React.PropTypes.object.isRequired,
+  wishlist: React.PropTypes.shape({
+    value: React.PropTypes.string.isRequired
+  }).isRequired,
   category: React.PropTypes.string.isRequired,
   choices: React.PropTypes.array.isRequired
 };
