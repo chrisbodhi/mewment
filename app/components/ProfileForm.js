@@ -1,5 +1,21 @@
 import React from 'react';
 import { reduxForm } from 'redux-form';
+import _ from 'lodash';
+
+import WishlistPicker from './WishlistPicker';
+
+const fields = [
+  'name',
+  'age',
+  'sex',
+  'color',
+  'about',
+  'file',
+  'wishlist.food',
+  'wishlist.litter',
+  'wishlist.toys'
+];
+
 
 const FormContainer = (props) => {
   const {
@@ -14,8 +30,9 @@ const FormContainer = (props) => {
     },
     handleSubmit,
     onSubmit,
-    submitting,
-    resetForm
+    products,
+    resetForm,
+    submitting
   } = props;
 
   return (
@@ -115,33 +132,16 @@ const FormContainer = (props) => {
 
         <div className="form-group">
           <label htmlFor="wishlist" required>Wishlist</label>
-          <div>
-            <h4>Food <span className="wishlist-note">pick just one</span></h4>
-            <label className="radio-inline">
-              <input
-                type="radio"
-                {...wishlist}
-                value="food|brand-a-dry-food|http://a.com/dry"
-                checked={wishlist.value === 'food|brand-a-dry-food|http://a.com/dry'}
+          {
+            _.map(products, (product, index) => (
+              <WishlistPicker
+                key={index}
+                wishlist={wishlist}
+                category={product.category}
+                choices={product.choices}
               />
-            </label>
-            <label className="radio-inline">
-              <input
-                type="radio"
-                {...wishlist}
-                value="food|b-brand-wet-food|http://a.com/wet"
-                checked={wishlist.value === 'food|b-brand-wet-food|http://a.com/wet'}
-              />
-            </label>
-            <label className="radio-inline">
-              <input
-                type="radio"
-                {...wishlist}
-                value="food|fictional-gravy|http://a.com/gravy"
-                checked={wishlist.value === 'food|fictional-gravy|http://a.com/gravy'}
-              />
-            </label>
-          </div>
+            ))
+          }
         </div>
 
         <button
@@ -167,13 +167,14 @@ const FormContainer = (props) => {
 FormContainer.propTypes = {
   fields: React.PropTypes.object.isRequired,
   handleSubmit: React.PropTypes.func.isRequired,
+  products: React.PropTypes.array.isRequired,
   resetForm: React.PropTypes.func.isRequired,
   submitting: React.PropTypes.bool.isRequired
 };
 
 const ProfileForm = reduxForm({
   form: 'profile',
-  fields: ['name', 'age', 'sex', 'color', 'about', 'file', 'wishlist']
+  fields
 })(FormContainer);
 
 export default ProfileForm;
