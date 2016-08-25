@@ -3,9 +3,8 @@ import _ from 'lodash';
 
 const WishlistPicker = (props) => {
   const { category, choices, wishlist } = props;
-
   return (<fieldset>
-    <label>{_.capitalize(category)}</label>
+    <legend>{_.capitalize(category)}</legend>
       {_.map(choices, (choice, ind) => (
         <label className="radio-inline">
           <input

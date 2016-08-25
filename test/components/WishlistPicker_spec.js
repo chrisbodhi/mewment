@@ -37,15 +37,15 @@ function PickerSetup() {
 
 describe('Component: WishlistPicker', () => {
   const { props, output } = PickerSetup();
-  const [label, choices] = output.props.children;
+  const [legend, choices] = output.props.children;
 
   it('renders one fieldset', () => {
     expect(output.type).toBe('fieldset');
   });
 
-  it('renders a label for its fieldset', () => {
-    expect(label.type).toBe('label');
-    expect(label.props.children).toBe(_.capitalize(props.category));
+  it('renders a legend for its fieldset', () => {
+    expect(legend.type).toBe('legend');
+    expect(legend.props.children).toBe(_.capitalize(props.category));
   });
 
   it('renders a radio button for each choice', () => {
