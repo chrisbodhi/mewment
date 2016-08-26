@@ -12,12 +12,24 @@ const PureProfilePreview = (props) => (
     <hr />
     <h4>Color: {_.get(props, 'profile.color.value', '')}</h4>
     <hr />
-    <h4>Wishlist: {_.get(props, 'profile.wishlist.value', '')}</h4>
+    <h4>Wishlist:
+      <ul>{_.get(props, 'profile.wishlist', '') &&
+      _.map(props.profile.wishlist, (list, ind) => (
+        <li key={ind}>{list.value}</li>
+      ))}
+      </ul>
+    </h4>
     <hr />
     <h4>About: {_.get(props, 'profile.about.value', '')}</h4>
     <hr />
   </div>
 );
+
+PureProfilePreview.propTypes = {
+  profile: React.PropTypes.shape({
+    wishlist: React.PropTypes.object.isRequired
+  }).isRequired
+};
 
 const mapStateToProfileContainerProps = (state) => ({ profile: state.form.profile });
 const ProfilePreview = connect(mapStateToProfileContainerProps)(PureProfilePreview);
