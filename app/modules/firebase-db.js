@@ -31,10 +31,10 @@ export function saveProfileToFb(data) {
       .then((snapshot) => {
         // catId is the n-th cat attached to the UID
         const catId = _.size(snapshot.val());
-        const { name, age, sex, color, about } = data;
+        const { name, age, sex, color, about, wishlist } = data;
         db.ref(`/cats/${uid}/${catId}`)
-          .set({ name, age, sex, color, about, avatar });
-        return { name, age, sex, color, about, avatar };
+          .set({ name, age, sex, color, about, avatar, wishlist });
+        return { name, age, sex, color, about, avatar, wishlist };
       })
       .catch((err) => {
         throw new Error(`Error getting cat profile: ${err}`);

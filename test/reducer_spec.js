@@ -162,9 +162,9 @@ describe('reducers', () => {
       const action = {
         type: ADD_TO_FEED_ERR,
         err: 'err string'
-      }
+      };
       const nextState = reducer(initialState, action);
-      expect(nextState.status.fetchedCatsError).toBe(true)
+      expect(nextState.status.fetchedCatsError).toBe(true);
     });
   });
 });

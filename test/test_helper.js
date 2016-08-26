@@ -4,7 +4,12 @@ export const catProfile = {
   sex: 'Spayed',
   color: 'Black',
   about: 'Stinky',
-  avatar: 'http://bit.ly/1rdk9Us'
+  avatar: 'http://bit.ly/1rdk9Us',
+  wishlist: {
+    food: [{ name: '', url: '' }],
+    litter: [{ name: '', url: '' }],
+    toys: [{ name: '', url: '' }]
+  }
 };
 
 export const defaultStatus = {

@@ -1,4 +1,5 @@
 import React from 'react';
+import _ from 'lodash';
 
 const CatTile = (cat, index) => (<li key={index}>
   <div className="tile">
@@ -8,6 +9,13 @@ const CatTile = (cat, index) => (<li key={index}>
     <div><strong>Color:</strong> {cat.color}</div>
     <div><strong>About:</strong> {cat.about}</div>
     <img src={cat.avatar} alt={`It's ${cat.name}!`} />
+    <div><strong>Wishlist:</strong>
+      <ul>
+        {_.map(cat.wishlist, (item, category) => (
+          <li>{_.capitalize(category)}: {item}</li>
+        ))}
+      </ul>
+    </div>
   </div>
 </li>);
 
