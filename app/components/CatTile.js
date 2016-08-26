@@ -4,7 +4,7 @@ import _ from 'lodash';
 
 const CatTile = (cat, index) => (<li key={index}>
   <div className="tile">
-    <Link to="/profiles/#{index}">
+    <Link to={`/profiles/${index}`}>
       <h3 className="cat-name">
         {cat.name || 'Derp'}
       </h3>
