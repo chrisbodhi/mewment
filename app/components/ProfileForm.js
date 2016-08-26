@@ -1,5 +1,21 @@
 import React from 'react';
 import { reduxForm } from 'redux-form';
+import _ from 'lodash';
+
+import WishlistPicker from './WishlistPicker';
+
+const fields = [
+  'name',
+  'age',
+  'sex',
+  'color',
+  'about',
+  'file',
+  'wishlist.food',
+  'wishlist.litter',
+  'wishlist.toys'
+];
+
 
 const FormContainer = (props) => {
   const {
@@ -9,12 +25,14 @@ const FormContainer = (props) => {
       sex,
       color,
       about,
-      file
+      file,
+      wishlist
     },
     handleSubmit,
     onSubmit,
-    submitting,
-    resetForm
+    products,
+    resetForm,
+    submitting
   } = props;
 
   return (
@@ -112,6 +130,20 @@ const FormContainer = (props) => {
           />
         </div>
 
+        <div className="form-group">
+          <label htmlFor="wishlist" required>Wishlist</label>
+          {
+            _.map(products, (product, index) => (
+              <WishlistPicker
+                key={index}
+                wishlist={wishlist}
+                category={product.category}
+                choices={product.choices}
+              />
+            ))
+          }
+        </div>
+
         <button
           type="submit"
           className="btn btn-primary btn-lg"
@@ -135,13 +167,14 @@ const FormContainer = (props) => {
 FormContainer.propTypes = {
   fields: React.PropTypes.object.isRequired,
   handleSubmit: React.PropTypes.func.isRequired,
+  products: React.PropTypes.array.isRequired,
   resetForm: React.PropTypes.func.isRequired,
   submitting: React.PropTypes.bool.isRequired
 };
 
 const ProfileForm = reduxForm({
   form: 'profile',
-  fields: ['name', 'age', 'sex', 'color', 'about', 'file']
+  fields
 })(FormContainer);
 
 export default ProfileForm;

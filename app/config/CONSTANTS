@@ -1,0 +1,2 @@
+// Public-facing constants
+export const AFFILIATE_CODE = '?amzn_code=666';
