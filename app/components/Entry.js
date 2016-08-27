@@ -1,10 +1,15 @@
 import React from 'react';
+// import Likes from 'likes';
+// import Comments from 'comments';
 
-const Entry = ({ entry }) => (
-  <div className="entry">
+const Entry = ({ entry, index }) => (
+  <li key={index} className="entry">
     <img alt={entry.alt} src={entry.url} />
-    <p className="caption">{entry.caption}</p>
-  </div>
+    {entry.caption.length
+      ? <p className="caption">{entry.caption}</p>
+      : null
+    }
+  </li>
 );
 
 Entry.propTypes = {
@@ -12,7 +17,8 @@ Entry.propTypes = {
     alt: React.PropTypes.string.isRequired,
     caption: React.PropTypes.string,
     url: React.PropTypes.string.isRequired
-  }).isRequired
+  }).isRequired,
+  index: React.PropTypes.number.isRequired
 };
 
 export default Entry;
