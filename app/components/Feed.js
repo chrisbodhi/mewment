@@ -1,13 +1,18 @@
 import React from 'react';
+import _ from 'lodash';
 
-const Feed = ({ cat }) => (
+import Entry from './Entry';
+
+const Feed = ({ entries }) => (
   <div className="feed">
-    {cat.avatar}
+    <ul>
+      {_.map(entries, (entry, index) => (<Entry entry={entry} index={index} />))}
+    </ul>
   </div>
 );
 
 Feed.propTypes = {
-  cat: React.PropTypes.object.isRequired
+  entries: React.PropTypes.array.isRequired
 };
 
 export default Feed;
