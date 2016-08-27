@@ -3,11 +3,12 @@ import expect from 'expect';
 import TestUtils from 'react-addons-test-utils';
 
 import Entry from '../../app/components/Entry';
-import { catProfile } from '../test_helper';
+
+import { entryObj } from '../test_helper';
 
 function entrySetup() {
   const props = {
-    cat: catProfile
+    entry: entryObj
   };
 
   const renderer = TestUtils.createRenderer();
@@ -35,7 +36,7 @@ describe('Component: Entry', () => {
 
   it('has one image', () => {
     expect(image.type).toBe('img');
-    expect(image.props.src).toInclude('http');
+    expect(image.props.src).toInclude('https://firebasestorage.googleapis.com');
     expect(image.props.alt.length).toBeGreaterThan(0);
   });
 

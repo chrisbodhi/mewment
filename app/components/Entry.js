@@ -1,12 +1,18 @@
 import React from 'react';
 
-const Entry = () => (
+const Entry = ({ entry }) => (
   <div className="entry">
-    <img alt="cat pic" src="http://butts.com" />
-    <p className="caption">this is a caption</p>
+    <img alt={entry.alt} src={entry.url} />
+    <p className="caption">{entry.caption}</p>
   </div>
 );
 
-Entry.propTypes = {};
+Entry.propTypes = {
+  entry: React.PropTypes.shape({
+    alt: React.PropTypes.string.isRequired,
+    caption: React.PropTypes.string,
+    url: React.PropTypes.string.isRequired
+  }).isRequired
+};
 
 export default Entry;
