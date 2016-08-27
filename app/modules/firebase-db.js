@@ -8,17 +8,32 @@ function handleFileSelect(data, uid) {
   const file = data.file[0];
   const metadata = {
     contentType: file.type
+    // todo: add labels, confidence ratings from catternaut
   };
-  const uploadTask = storageRef.child(uid).child(file.name).put(file, metadata);
+  const uidRef = storageRef.child(uid);
+  const imageRef = uidRef.child(file.name);
+  const uploadTask = imageRef.put(file, metadata);
 
   return new Promise((resolve, reject) => {
     uploadTask.on('state_changed', (snapshot) => {
-      console.log('snapshot', snapshot);
+      console.log('state change snapshot:', snapshot);
     }, (error) => {
+      console.log('Error in uploading the image.');
+      switch (error.code) {
+        case 'storage/unauthorized':
+          console.log('Error code:', error.code);
+          break;
+        case 'storage/unknown':
+          console.log('Error code:', error.code, error.serverResponse);
+          break;
+        default:
+          console.log('Error code:', error.code);
+          break;
+      }
       reject(error);
     }, () => {
       console.log('Uploaded', uploadTask.snapshot.totalBytes, 'bytes.');
-      const image = uploadTask.snapshot.metadata.downloadURLs[0];
+      const image = uploadTask.snapshot.downloadURL;
       resolve(image);
     });
   });

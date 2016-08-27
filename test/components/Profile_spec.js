@@ -69,9 +69,9 @@ describe('Components', () => {
 
     it('should contain the correct name, age, sex, color, about, and avatar url', () => {
       const catLi = output.props.children[0].props.children.props.children;
-      expect(catLi.length).toBe(6);
+      expect(catLi.length).toBe(7);
 
-      expect(catLi[0].props.children).toInclude('Qwerty');
+      expect(catLi[0].props.children.props.children).toInclude('Qwerty');
       expect(catLi[1].props.children).toInclude('1');
       expect(catLi[2].props.children).toInclude('Spayed');
       expect(catLi[3].props.children).toInclude('Black');

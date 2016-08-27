@@ -76,22 +76,6 @@ describe('Actions', () => {
       expect(actions.showUploadForm(index)).toEqual(expectedAction);
     });
 
-    xit('creates ADD_TO_FEED_SUCCESS when a photo has been added to a feed', () => {
-      const feed = 'public';
-      const catId = '1';
-      nock('').get('/todos').reply(200, { body: { todos: ['a', 'b'] } });
-      const expectedActions = [
-        { type: actions.ADD_TO_FEED_REQUEST },
-        { type: actions.ADD_TO_FEED_SUCCESS, body: { todos: ['a', 'b'] } }
-      ];
-      const store = mockStore({ todos: [] });
-
-      return store.dispatch(actions.addPhoto({ uid, catId, feed }))
-        .then(() => {
-          expect(store.getActions()).toEqual(expectedActions);
-        });
-    });
-
     xit('creates ADD_TO_FEED_ERR when photo upload fails', () => {
       const feed = 'public';
       const catId = '1';

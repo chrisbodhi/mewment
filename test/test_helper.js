@@ -5,10 +5,24 @@ export const catProfile = {
   color: 'Black',
   about: 'Stinky',
   avatar: 'http://bit.ly/1rdk9Us',
+  public: {
+    firebaseKey1: 'https://placekitten.com/200/300',
+    firebaseKey2: 'https://placekitten.com/300/300',
+    firebaseKey3: 'https://placekitten.com/400/300',
+  },
+  private: {},
   wishlist: {
-    food: [{ name: '', url: '' }],
-    litter: [{ name: '', url: '' }],
-    toys: [{ name: '', url: '' }]
+    toys: [
+      { name: 'Mouse', link: 'http://amzn.co/mousey' },
+      { name: 'Bird', link: 'http://amzn.co/birdy' }
+    ],
+    food: [
+      { name: 'dry food', link: 'http://amzn.co/dry' },
+      { name: 'canned food', link: 'http://amzn.co/canned' }
+    ],
+    litter: [
+      { name: 'littering', link: 'http://amzn.co/litter' }
+    ]
   }
 };
 

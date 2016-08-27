@@ -22,7 +22,6 @@ export const FETCH_CATS_ERR = 'FETCH_CATS_ERR';
 
 export const SHOW_UPLOAD_FORM = 'SHOW_UPLOAD_FORM';
 export const ADD_TO_FEED_REQUEST = 'ADD_TO_FEED_REQUEST';
-export const ADD_TO_FEED_SUCCESS = 'ADD_TO_FEED_SUCCESS';
 export const ADD_TO_FEED_ERR = 'ADD_TO_FEED_ERR';
 
 // ACTION CREATORS
@@ -84,14 +83,6 @@ function addToFeedRequest({ uid, catId, feed }) {
   };
 }
 
-// todo: this action updates the state through the reducer
-function addToFeedSuccess(imgObj) {
-  return {
-    type: ADD_TO_FEED_SUCCESS,
-    image: imgObj.image
-  };
-}
-
 function addToFeedErr(err) {
   return {
     type: ADD_TO_FEED_ERR,
@@ -103,7 +94,7 @@ export function addPhoto({ uid, catId, feed, file }) {
   return (dispatch) => {
     dispatch(addToFeedRequest({ uid, catId, feed }));
     return addPhotoToFb({ uid, catId, feed, file })
-      .then((imgObj) => dispatch(addToFeedSuccess(imgObj)))
+      .then(() => dispatch(fetchCats(uid)))
       .catch((err) => dispatch(addToFeedErr(err)));
   };
 }

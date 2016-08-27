@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import expect from 'expect';
 
 import reducer from '../app/reducers';
@@ -11,7 +12,6 @@ import {
   FETCH_CATS_ERR,
   SIGN_OUT_OF_FB,
   SHOW_UPLOAD_FORM,
-  ADD_TO_FEED_SUCCESS,
   ADD_TO_FEED_ERR
 } from '../app/actions';
 
@@ -31,7 +31,7 @@ const initialState = {
   status
 };
 
-describe('reducers', () => {
+describe('Reducers', () => {
   describe('profile reducer', () => {
     it('defaults to the initial state', () => {
       const nextState = reducer(undefined, {});
@@ -76,6 +76,22 @@ describe('reducers', () => {
       const nextState = reducer(profileState, action);
       expect(nextState.cats.length).toBe(1);
       expect(nextState.cats[0]).toEqual(catProfile);
+    });
+
+    it('FETCH_CATS_SUCCESS overwrites the entire `cats` state', () => {
+      const actionOne = {
+        type: FETCH_CATS_SUCCESS,
+        catsFromFb: [catProfile]
+      };
+      const initCatState = reducer(initialState, actionOne);
+
+      const actionTwo = {
+        type: FETCH_CATS_SUCCESS,
+        catsFromFb: [catProfile]
+      };
+      const nextState = reducer(initCatState, actionTwo);
+
+      expect(initCatState.cats.length).toEqual(nextState.cats.length);
     });
 
     it('FETCH_CATS_SUCCESS adds cat profile from Firebase to cats in state', () => {
