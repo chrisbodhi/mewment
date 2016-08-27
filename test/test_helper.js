@@ -36,3 +36,9 @@ export const defaultStatus = {
   showUploadForm: false,
   catIndexForUpload: null
 };
+
+export const entryObj = {
+  alt: 'cat pic',
+  caption: 'this is a caption',
+  url: 'https://firebasestorage.googleapis.com/v0/b/project-3398608299508035534.appspot.com/o/685030558304560%2FIMG_3738.jpg?alt=media&token=03bdb271-b2ce-47f6-9cd7-f53b9bba3510'
+};
