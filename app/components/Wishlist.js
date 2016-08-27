@@ -15,9 +15,9 @@ const Wishlist = ({ wishlist }) => (
 
 Wishlist.propTypes = {
   wishlist: React.PropTypes.shape({
-    toys: React.PropTypes.object.isRequired,
-    food: React.PropTypes.object.isRequired,
-    litter: React.PropTypes.object.isRequired,
+    toys: React.PropTypes.array.isRequired,
+    food: React.PropTypes.array.isRequired,
+    litter: React.PropTypes.array.isRequired,
   }).isRequired
 };
 

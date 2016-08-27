@@ -17,7 +17,7 @@ const CatTile = (cat, index) => (<li key={index}>
     <div><strong>Wishlist:</strong>
       <ul>
         {_.map(cat.wishlist, (item, category) => (
-          <li>{_.capitalize(category)}: {item}</li>
+          <li key={item}>{_.capitalize(category)}: {item}</li>
         ))}
       </ul>
     </div>

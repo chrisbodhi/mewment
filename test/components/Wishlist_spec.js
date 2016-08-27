@@ -23,9 +23,11 @@ describe('Component: Wishlist', () => {
   it('renders three unordered lists in a div', () => {
     expect(output.type).toBe('div');
     expect(output.props.className).toBe('wishlist');
-    expect(output.props.children.length).toBe(3);
+    expect(output.props.children[1].props.children.length).toBe(3);
 
-    const allUl = _.every(output.props.children, (kid) => kid.type === 'ul');
+    const allUl = _.every(output.props.children[1].props.children, (kid) => (
+      kid.type === 'li'
+    ));
     expect(allUl).toBe(true);
   });
 });

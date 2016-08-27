@@ -6,9 +6,11 @@ const WishlistPicker = (props) => {
   return (<fieldset>
     <legend>{_.capitalize(category)}</legend>
       {_.map(choices, (choice, ind) => (
-        <label className="radio-inline">
+        <label
+          className="radio-inline"
+          key={`${category}-choice-${ind}`}
+        >
           <input
-            key={`${category}-choice-${ind}`}
             type="radio"
             {...wishlist[category]}
             value={choice.value}
@@ -22,9 +24,7 @@ const WishlistPicker = (props) => {
 };
 
 WishlistPicker.propTypes = {
-  wishlist: React.PropTypes.shape({
-    value: React.PropTypes.string.isRequired
-  }).isRequired,
+  wishlist: React.PropTypes.object.isRequired,
   category: React.PropTypes.string.isRequired,
   choices: React.PropTypes.array.isRequired
 };

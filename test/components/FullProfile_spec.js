@@ -9,6 +9,8 @@ import { catProfile } from '../test_helper';
 function profileSetup(uid) {
   const props = {
     cat: catProfile,
+    cats: [catProfile],
+    params: { id: '0' },
     user: { uid }
   };
 
@@ -55,7 +57,7 @@ describe('Component: FullProfile', () => {
 
     expect(name.type).toBe('h1');
     expect(name.props.className).toBe('name');
-    expect(name.props.children).toBe(catProfile.name);
+    expect(name.props.children).toInclude(catProfile.name);
   });
 
   it('renders the descriptors in the heading', () => {
@@ -67,13 +69,13 @@ describe('Component: FullProfile', () => {
     const [color, age, sex] = descriptors.props.children;
 
     expect(color.props.className).toBe('color');
-    expect(color.props.children).toBe(catProfile.color);
+    expect(color.props.children).toInclude(catProfile.color);
 
     expect(age.props.className).toBe('age');
-    expect(age.props.children).toBe(catProfile.age);
+    expect(age.props.children).toInclude(catProfile.age);
 
     expect(sex.props.className).toBe('sex');
-    expect(sex.props.children).toBe(catProfile.sex);
+    expect(sex.props.children).toInclude(catProfile.sex);
   });
 
   // Testing of custom components happens in their respective specs
@@ -85,7 +87,7 @@ describe('Component: FullProfile', () => {
   it('renders the cat\'s profile', () => {
     expect(profile.type).toBe('div');
     expect(profile.props.id).toBe('profile');
-    expect(profile.props.children).toBe(catProfile.about);
+    expect(profile.props.children).toInclude(catProfile.about);
   });
 
   // Same
