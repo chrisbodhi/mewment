@@ -11,7 +11,6 @@ const PhotoGrid = ({ photos }) => (
   </div>
 );
 
-
 PhotoGrid.propTypes = {
   photos: React.PropTypes.object.isRequired
 };
