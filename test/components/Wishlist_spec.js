@@ -1,9 +1,8 @@
-import _ from 'lodash';
 import expect from 'expect';
 import React from 'react';
 import TestUtils from 'react-addons-test-utils';
 import Wishlist from '../../app/components/Wishlist';
-import { catProfile } from '../test_helper';
+import { catProfile, everyType } from '../test_helper';
 
 function wishlistSetup() {
   const props = {
@@ -25,9 +24,7 @@ describe('Component: Wishlist', () => {
     expect(output.props.className).toBe('wishlist');
     expect(output.props.children[1].props.children.length).toBe(3);
 
-    const allUl = _.every(output.props.children[1].props.children, (kid) => (
-      kid.type === 'li'
-    ));
+    const allUl = everyType(output.props.children[1].props.children, 'li');
     expect(allUl).toBe(true);
   });
 });
