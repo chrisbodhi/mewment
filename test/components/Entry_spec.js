@@ -23,16 +23,25 @@ function entrySetup() {
 
 describe('Component: Entry', () => {
   const { output } = entrySetup();
+  const [image, caption] = output.props.children;
+
+  it('has the type of div', () => {
+    expect(output.type).toBe('div');
+  });
+
+  it('has `entry` as its classname', () => {
+    expect(output.props.className).toBe('entry');
+  });
 
   it('has one image', () => {
-    const image = output[0];
     expect(image.type).toBe('img');
-    expect(image.props.children.length).toBe(1);
+    expect(image.props.src).toInclude('http');
+    expect(image.props.alt.length).toBeGreaterThan(0);
   });
 
   it('has a caption', () => {
-    const caption = output[1];
     expect(caption.type).toBe('p');
+    expect(caption.props.className).toBe('caption');
     expect(caption.props.children).toBe('this is a caption');
   });
 });
