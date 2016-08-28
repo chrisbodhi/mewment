@@ -1,5 +1,5 @@
 import React from 'react';
-// import Likes from 'likes';
+import Likes from './Likes';
 // import Comments from 'comments';
 
 const Entry = ({ entry, index }) => (
@@ -9,6 +9,7 @@ const Entry = ({ entry, index }) => (
       ? <p className="caption">{entry.caption}</p>
       : null
     }
+    <Likes />
   </li>
 );
 
