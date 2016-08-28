@@ -8,7 +8,7 @@ function handleFileSelect(data, uid) {
   const file = data.file[0];
   const metadata = {
     contentType: file.type
-    // todo: add labels, confidence ratings from catternaut
+    // todo: add to metadata the labels, confidence ratings from catternaut
   };
   const uidRef = storageRef.child(uid);
   const imageRef = uidRef.child(file.name);
@@ -42,7 +42,9 @@ function handleFileSelect(data, uid) {
 export function saveProfileToFb(data) {
   const uid = firebase.auth().currentUser.providerData[0].uid;
   return handleFileSelect(data, uid)
-    .then((avatar) => db.ref(`/cats/${uid}`).once('value')
+    .then((avatar) => db
+      .ref(`/cats/${uid}`)
+      .once('value')
       .then((snapshot) => {
         // catId is the n-th cat attached to the UID
         const catId = _.size(snapshot.val());
@@ -54,7 +56,7 @@ export function saveProfileToFb(data) {
       .catch((err) => {
         throw new Error(`Error getting cat profile: ${err}`);
       })
-    );
+  );
 }
 
 export function fetchCatsFromFb(uid) {
@@ -67,7 +69,7 @@ export function addPhotoToFb(data) {
   const { uid, catId, feed } = data;
   return handleFileSelect(data, uid)
     .then((image) => {
-      db.ref(`/cats/${uid}/${catId}/${feed}`)
+      db.ref(`/photos/${uid}/${catId}/${feed}`)
         .push(image);
       return { image };
     })
