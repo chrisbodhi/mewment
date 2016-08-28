@@ -26,7 +26,7 @@ function entrySetup(obj) {
 describe('Component: Entry', () => {
   describe('An entry with a caption', () => {
     const { output } = entrySetup(entryObj);
-    const [image, caption] = output.props.children;
+    const [image, caption, likes] = output.props.children;
 
     it('has the type of li', () => {
       expect(output.type).toBe('li');
@@ -47,6 +47,11 @@ describe('Component: Entry', () => {
       expect(caption.props.className).toBe('caption');
       expect(caption.props.children).toBe('this is a caption');
     });
+
+    it('has a Likes component', () => {
+      expect(likes.type).toBeA('function');
+      expect(likes.type.toString()).toInclude('Likes');
+    });
   });
 
   describe('An entry without any caption', () => {
@@ -58,9 +63,9 @@ describe('Component: Entry', () => {
     const { output } = entrySetup(noCaptionEntryObj);
 
     it('does not have a paragraph tag', () => {
-      console.log('output.props.children', output.props.children);
-      expect(_.compact(output.props.children).length).toBe(1);
       expect(output.props.children[0].type).toBe('img');
+      expect(output.props.children[1]).toBe(null);
+      expect(output.props.children[2].type).toBeA('function');
     });
   });
 });

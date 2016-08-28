@@ -1,6 +1,6 @@
 import React from 'react';
 import Likes from './Likes';
-// import Comments from 'comments';
+// import Comments from './Comments';
 
 const Entry = ({ entry, index }) => (
   <li key={index} className="entry">
