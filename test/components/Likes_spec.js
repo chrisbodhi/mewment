@@ -22,8 +22,6 @@ describe('Component: Likes', () => {
   describe('when there are no likes, there is a div', () => {
     const { output } = likesSetup();
 
-    console.log('output.props', output.props);
-
     it('with the className `likes`', () => {
       expect(output.type).toBe('div');
       expect(output.props.className).toBe('likes');
