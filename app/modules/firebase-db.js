@@ -59,10 +59,35 @@ export function saveProfileToFb(data) {
   );
 }
 
-export function fetchCatsFromFb(uid) {
+function merge(cats, snaps) {
+  return _.map(cats, (cat, index) => _.assign(
+    {},
+    cat,
+    snaps[index] || {}
+  ));
+}
+
+function fetchProfiles(uid) {
   return db.ref(`/cats/${uid}`)
     .once('value')
     .then((snapshot) => snapshot.val());
+}
+
+function fetchPhotos(uid, cats) {
+  return db.ref(`/photos/${uid}`)
+    .once('value')
+    .then((snapshot) => {
+      const snaps = snapshot.val();
+      return merge(cats, snaps);
+    });
+}
+
+export function fetchCatsFromFb(uid) {
+  return fetchProfiles(uid)
+    .then((cats) => fetchPhotos(uid, cats))
+    .catch((err) => {
+      throw new Error(`Error getting cats or photos: ${err}`);
+    });
 }
 
 export function addPhotoToFb(data) {
