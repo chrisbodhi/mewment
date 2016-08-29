@@ -14,8 +14,8 @@ const PureProfilePreview = (props) => (
     <hr />
     <h4>Wishlist:
       <ul>{_.get(props, 'profile.wishlist', '') &&
-      _.map(props.profile.wishlist, (list, ind) => (
-        <li key={ind}>{list.value}</li>
+      _.map(props.profile.wishlist, (list) => (
+        <li key={Math.random()}>{list.value}</li>
       ))}
       </ul>
     </h4>
