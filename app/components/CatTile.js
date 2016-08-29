@@ -17,7 +17,13 @@ const CatTile = (cat, index) => (<li key={index}>
     <div><strong>Wishlist:</strong>
       <ul>
         {_.map(cat.wishlist, (item, category) => (
-          <li key={item}>{_.capitalize(category)}: {item}</li>
+          <li key={item.name}>
+            {/* Dat space after the below colon: terrible formatting hack */}
+            {_.capitalize(category)}: <a
+              href={item.url}
+              alt={`Affiliate link to ${item.name}`}
+            >{item.name}</a>
+          </li>
         ))}
       </ul>
     </div>
