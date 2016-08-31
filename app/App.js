@@ -27,9 +27,11 @@ const store = createStore(
 
 store.subscribe(() => {
   saveState({
-    user: store.getState().user,
     cats: store.getState().cats,
-    status: store.getState().status
+    likes: store.getState().likes,
+    photos: store.getState().photos,
+    status: store.getState().status,
+    user: store.getState().user
   });
 });
 
