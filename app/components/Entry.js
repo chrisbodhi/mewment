@@ -1,5 +1,6 @@
 import React from 'react';
 import Likes from './Likes';
+import LikeButton from './LikeButton';
 
 const Entry = ({ entry, index }) => (
   <li key={index} className="entry">
@@ -9,6 +10,7 @@ const Entry = ({ entry, index }) => (
       : null
     }
     <Likes />
+    <LikeButton />
   </li>
 );
 
