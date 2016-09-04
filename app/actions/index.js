@@ -24,6 +24,8 @@ export const SHOW_UPLOAD_FORM = 'SHOW_UPLOAD_FORM';
 export const ADD_TO_FEED_REQUEST = 'ADD_TO_FEED_REQUEST';
 export const ADD_TO_FEED_ERR = 'ADD_TO_FEED_ERR';
 
+export const ADD_LIKE = 'ADD_LIKE';
+
 // ACTION CREATORS
 
 // Cat actions
@@ -176,3 +178,26 @@ export function addProfile(data) {
       });
   };
 }
+
+export function addLike({ ownerId, catId, photoId, likerId }) {
+  return {
+    type: ADD_LIKE,
+    ownerId,
+    catId,
+    photoId,
+    likerId
+  };
+
+  // todo: not quite -- there's some dispatching that needs to happen here-ish
+}
+
+/*
+export function fetchCats(uid) {
+  return (dispatch) => {
+    dispatch(fetchCatsRequest(uid));
+    return fetchCatsFromFb(uid)
+      .then((catsFromFb) => dispatch(fetchCatsSuccess(catsFromFb)))
+      .catch((err) => dispatch(fetchCatsErr(err)));
+  };
+}
+*/

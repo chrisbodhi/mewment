@@ -103,4 +103,22 @@ describe('Actions', () => {
       expect(actions.clearProfile()).toEqual(expectedAction);
     });
   });
+
+  xdescribe('User Actions', () => {
+    it('creates an action to add a `like` to a photo', () => {
+      const ownerId = '1234';
+      const catId = '0';
+      const photoId = '0';
+      const likerId = '4321';
+
+      const expectedAction = {
+        type: actions.ADD_LIKE,
+        ownerId,
+        catId,
+        photoId,
+        likerId
+      };
+      expect(actions.addLike({ ownerId, catId, photoId, likerId })).toEqual(expectedAction);
+    });
+  });
 });
