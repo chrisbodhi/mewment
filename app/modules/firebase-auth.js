@@ -28,8 +28,12 @@ export function fbSignIn() {
           if (!snapshot.val()) {
             const { displayName, email, photoURL, providerId } = user;
             db.ref(`/users/${uid}`).set({ displayName, email, photoURL, providerId, uid });
+
+            // Add user's uid to the collection about who they are following
+            db.ref(`/following/${uid}`).set({});
           }
         });
+
       return user;
     })
     .catch((err) => {
