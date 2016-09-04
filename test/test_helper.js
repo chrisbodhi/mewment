@@ -30,9 +30,15 @@ export const defaultStatus = {
   photoIsUploading: false,
   photoUploadSuccess: false,
   photoUploadError: false,
+
   fetchingCats: false,
   fetchedCatsSuccess: false,
   fetchedCatsError: false,
+
+  fetchingFollowing: false,
+  fetchedFollowingSuccess: false,
+  fetchedFollowingError: false,
+
   showUploadForm: false,
   catIndexForUpload: null
 };
