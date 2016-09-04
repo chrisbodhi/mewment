@@ -2,7 +2,9 @@ import { fbSignIn, fbSignOut } from '../modules/firebase-auth';
 import {
   addPhotoToFb,
   fetchCatsFromFb,
-  saveProfileToFb
+  fetchFollowingFromFb,
+  saveProfileToFb,
+  fetchUsers
 } from '../modules/firebase-db';
 
 // ACTION TYPES
@@ -20,9 +22,15 @@ export const FETCH_CATS_REQUEST = 'FETCH_CATS_REQUEST';
 export const FETCH_CATS_SUCCESS = 'FETCH_CATS_SUCCESS';
 export const FETCH_CATS_ERR = 'FETCH_CATS_ERR';
 
+export const FETCH_FOLLOWING_ERR = 'FETCH_FOLLOWING_ERR';
+export const FETCH_FOLLOWING_REQUEST = 'FETCH_FOLLOWING_REQUEST';
+export const FETCH_FOLLOWING_SUCCESS = 'FETCH_FOLLOWING_SUCCESS';
+
 export const SHOW_UPLOAD_FORM = 'SHOW_UPLOAD_FORM';
 export const ADD_TO_FEED_REQUEST = 'ADD_TO_FEED_REQUEST';
 export const ADD_TO_FEED_ERR = 'ADD_TO_FEED_ERR';
+
+export const FETCH_ALL_USERS = 'FETCH_ALL_USERS';
 
 // ACTION CREATORS
 
@@ -65,6 +73,52 @@ export function fetchCats(uid) {
   };
 }
 // end of fetching cats from firebase
+
+// start of fetching `following` from firebase
+// gotta get all them uid's first, though
+function fetchAllUsersSuccess(allUsers) {
+  return {
+    type: FETCH_ALL_USERS,
+    allUsers
+  };
+}
+
+export function fetchAllUsers(uid) {
+  return (dispatch) => fetchUsers(uid)
+    .then((allUsers) => dispatch(fetchAllUsersSuccess(allUsers)));
+}
+
+function fetchFollowingRequest(uid) {
+  return {
+    type: FETCH_FOLLOWING_REQUEST,
+    uid
+  };
+}
+
+function fetchFollowingSuccess(following) {
+  return {
+    type: FETCH_FOLLOWING_SUCCESS,
+    following
+  };
+}
+
+function fetchFollowingErr(err) {
+  return {
+    type: FETCH_FOLLOWING_ERR,
+    err
+  };
+}
+
+export function fetchFollowing(uid) {
+  return (dispatch) => {
+    dispatch(fetchFollowingRequest(uid));
+    return fetchFollowingFromFb(uid)
+      .then((following) => dispatch(fetchFollowingSuccess(following)))
+      .catch((err) => dispatch(fetchFollowingErr(err)));
+  };
+}
+// end of fetching cats from firebase
+
 
 // start of adding cat photos
 export function showUploadForm(index) {
@@ -134,6 +188,8 @@ export function signIn() {
       .then((user) => {
         dispatch(receiveUser(user));
         dispatch(fetchCats(user.uid));
+        dispatch(fetchFollowing(user.uid));
+        dispatch(fetchAllUsers(user.uid));
       })
       .catch((err) => {
         throw new Error(`Err in signIn(): ${err}`);

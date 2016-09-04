@@ -5,13 +5,23 @@ import { reducer as formReducer } from 'redux-form';
 import {
   SIGN_IN_WITH_FB,
   SIGN_OUT_OF_FB,
+
   RECEIVE_USER,
+
   ADD_PROFILE,
   CLEAR_PROFILE,
   ADD_CAT,
+
   FETCH_CATS_REQUEST,
   FETCH_CATS_SUCCESS,
   FETCH_CATS_ERR,
+
+  FETCH_FOLLOWING_REQUEST,
+  FETCH_FOLLOWING_SUCCESS,
+  FETCH_FOLLOWING_ERR,
+
+  FETCH_ALL_USERS,
+
   SHOW_UPLOAD_FORM,
   ADD_TO_FEED_ERR
 } from '../actions';
@@ -96,6 +106,21 @@ function cats(state = [], action) {
   }
 }
 
+function following(state = {}, action) {
+  switch (action.type) {
+    case FETCH_FOLLOWING_SUCCESS:
+      return _.assign(
+        {},
+        state,
+        action.following
+      );
+    case SIGN_OUT_OF_FB:
+      return {};
+    default:
+      return state;
+  }
+}
+
 function status(state = defaultStatus, action) {
   const resetStatus = _.assign(
     {},
@@ -112,6 +137,32 @@ function status(state = defaultStatus, action) {
       return resetStatus;
     case FETCH_CATS_ERR:
       return resetStatus;
+
+    case FETCH_FOLLOWING_REQUEST:
+      return _.assign(
+        {},
+        state,
+        { fetchingFollowing: true }
+      );
+    case FETCH_FOLLOWING_SUCCESS:
+      return _.assign(
+        {},
+        state,
+        {
+          fetchingFollowing: false,
+          fetchingFollowingSuccess: true
+        }
+      );
+    case FETCH_FOLLOWING_ERR:
+      return _.assign(
+        {},
+        state,
+        {
+          fetchingFollowing: false,
+          fetchingFollowingError: action.err
+        }
+      );
+
     case SHOW_UPLOAD_FORM:
       return _.assign(
         {},
@@ -132,11 +183,24 @@ function status(state = defaultStatus, action) {
   }
 }
 
+function users(state = [], action) {
+  switch (action.type) {
+    case FETCH_ALL_USERS:
+      return [...action.allUsers];
+    case SIGN_OUT_OF_FB:
+      return [];
+    default:
+      return state;
+  }
+}
+
 const reducers = {
   user: userAuth,
   profile,
   form: formReducer,
   cats,
+  following,
+  users,
   status
 };
 

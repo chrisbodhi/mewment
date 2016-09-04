@@ -102,3 +102,15 @@ export function addPhotoToFb(data) {
       throw new Error(`Error uploading cat image: ${err}`);
     });
 }
+
+export function fetchFollowingFromFb(uid) {
+  return db.ref(`/following/${uid}`)
+    .once('value')
+    .then((snapshot) => snapshot.val());
+}
+
+export function fetchUsers(uid) {
+  return db.ref('/users')
+    .once('value')
+    .then((snapshot) => _.without(_.keys(snapshot.val()), uid));
+}
