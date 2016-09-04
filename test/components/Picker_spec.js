@@ -26,5 +26,7 @@ describe('Component: Picker', () => {
     expect(output.props.className).toBe('picker');
     expect(output.props.children[1].props.children.length).toBe(3);
   });
+
+  // Make sure the PhotoGrid component is in here
 });
 
