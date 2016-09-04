@@ -102,3 +102,27 @@ export function addPhotoToFb(data) {
       throw new Error(`Error uploading cat image: ${err}`);
     });
 }
+
+export function updateLikeCount(num) {
+  console.log('updateLikeCount', num);
+  return num;
+}
+
+export function addLikeToPhoto(data) {
+  const { ownerId, catId, photoId, likerId } = data;
+  const uid = ownerId;
+  // open connection to FB, add userId to array of photo likers
+  // call function to update count of likes in the callback after
+  // `push`
+  return db.ref(`/likes/${uid}/${catId}/${photoId}`)
+    .push(likerId)
+    .then((arrayOfLikers) => {
+      // updateLikeCount(arrayOfLikers.length));
+      console.log('arrayOfLikers', arrayOfLikers);
+      // todo: return object -- { likes: aNumber }
+      return { likes: arrayOfLikers.length };
+    })
+    .catch((e) => {
+      console.log('error in pushing likerId', e);
+    });
+}
