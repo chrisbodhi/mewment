@@ -29,7 +29,9 @@ store.subscribe(() => {
   saveState({
     user: store.getState().user,
     cats: store.getState().cats,
-    status: store.getState().status
+    following: store.getState().following,
+    status: store.getState().status,
+    users: store.getState().users
   });
 });
 
