@@ -4,7 +4,7 @@ import {
   fetchCatsFromFb,
   saveProfileToFb
 } from '../modules/firebase-db';
-
+import { browserHistory } from 'react-router';
 // ACTION TYPES
 export const SIGN_IN_WITH_FB = 'SIGN_IN_WITH_FB';
 export const SIGN_OUT_OF_FB = 'SIGN_OUT_OF_FB';
@@ -145,6 +145,7 @@ export function signOut() {
   return (dispatch) => fbSignOut()
     .then(() => {
       dispatch(signOutOfFb());
+      browserHistory.push('/');
     })
     .catch((err) => {
       throw new Error(`Err in signOut(): ${err}`);
